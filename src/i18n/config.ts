@@ -42,7 +42,8 @@ const resources = {
       "sendResetEmail": "Send Reset Email", // New translation key
       "backToSignIn": "Back to Sign In", // New translation key
       "passwordResetEmailSent": "Password reset email sent! Check your inbox.", // New translation key
-      "failedToSendResetEmail": "Failed to send reset email. Please try again." // New translation key
+      "failedToSendResetEmail": "Failed to send reset email. Please try again.", // New translation key
+      "avatar": "Avatar" // New translation key
     }
   },
   zh: {
@@ -84,7 +85,8 @@ const resources = {
       "sendResetEmail": "发送重置邮件", // New translation key
       "backToSignIn": "返回登录", // New translation key
       "passwordResetEmailSent": "密码重置邮件已发送！请检查您的收件箱。", // New translation key
-      "failedToSendResetEmail": "发送重置邮件失败。请再试一次。" // New translation key
+      "failedToSendResetEmail": "发送重置邮件失败。请再试一次。", // New translation key
+      "avatar": "头像" // New translation key
     }
   }
 };
