@@ -95,7 +95,7 @@ export default function AuthenticatedLayout({ children }: AuthenticatedLayoutPro
 
           {/* Mobile menu */}
           <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-gray-900`}>
-            <div className="pt-2 pb-3 space-y-1">
+            <div className="pt-2 pb-3 space-y-4"> {/* Changed space-y-1 to space-y-4 */}
               <Link
                 to="/dashboard"
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
@@ -106,12 +106,12 @@ export default function AuthenticatedLayout({ children }: AuthenticatedLayoutPro
               >
                 {t('dashboard')}
               </Link>
-              <div className="flex items-center justify-center mb-2">
+              <div className="flex items-center justify-center mb-4">
                 <LanguageSwitcher />
               </div>
               <button
                 onClick={handleSignOut}
-                className="w-full px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                className="w-full px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 mt-4"
               >
                 {t('signout')}
               </button>
