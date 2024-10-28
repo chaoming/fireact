@@ -40,11 +40,37 @@ Create a `config.json` file in the `src` directory with the following structure:
     "storageBucket": "YOUR_STORAGE_BUCKET",
     "messagingSenderId": "YOUR_MESSAGING_SENDER_ID",
     "appId": "YOUR_APP_ID"
+  },
+  "socialLogin": {
+    "google": true,
+    "microsoft": false,
+    "facebook": false,
+    "apple": false,
+    "github": false,
+    "twitter": false,
+    "yahoo": false
   }
 }
 ```
 
 Replace the placeholders with your Firebase project credentials. You can find these in your Firebase console under Project Settings.
+
+### Controlling Sign-In Methods
+In the `socialLogin` section of the `config.json` file, you can enable or disable specific sign-in methods by setting their values to `true` or `false`. For example, to enable only Google sign-in, set the configuration as follows:
+
+```json
+"socialLogin": {
+  "google": true,
+  "microsoft": false,
+  "facebook": false,
+  "apple": false,
+  "github": false,
+  "twitter": false,
+  "yahoo": false
+}
+```
+
+This allows you to control which sign-in methods are available in your application without needing to modify the code in `SignIn.tsx`.
 
 ## Firebase Setup
 1. Initialize Firebase in your project:
