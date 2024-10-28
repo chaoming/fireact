@@ -37,7 +37,12 @@ const resources = {
       "signInWithGitHub": "Sign in with GitHub",
       "signInWithTwitter": "Sign in with Twitter",
       "signInWithYahoo": "Sign in with Yahoo",
-      "forgotPassword": "Forgot Password?" // New translation key
+      "forgotPassword": "Forgot Password?",
+      "resetPassword": "Reset Password", // New translation key
+      "sendResetEmail": "Send Reset Email", // New translation key
+      "backToSignIn": "Back to Sign In", // New translation key
+      "passwordResetEmailSent": "Password reset email sent! Check your inbox.", // New translation key
+      "failedToSendResetEmail": "Failed to send reset email. Please try again." // New translation key
     }
   },
   zh: {
@@ -74,7 +79,12 @@ const resources = {
       "signInWithGitHub": "使用 GitHub 登录",
       "signInWithTwitter": "使用 Twitter 登录",
       "signInWithYahoo": "使用 Yahoo 登录",
-      "forgotPassword": "忘记密码？" // New translation key
+      "forgotPassword": "忘记密码？",
+      "resetPassword": "重置密码", // New translation key
+      "sendResetEmail": "发送重置邮件", // New translation key
+      "backToSignIn": "返回登录", // New translation key
+      "passwordResetEmailSent": "密码重置邮件已发送！请检查您的收件箱。", // New translation key
+      "failedToSendResetEmail": "发送重置邮件失败。请再试一次。" // New translation key
     }
   }
 };
