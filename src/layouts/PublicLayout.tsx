@@ -4,7 +4,7 @@ import Logo from '../components/Logo';
 import { Outlet } from 'react-router-dom';
 import { useLoading } from '../contexts/LoadingContext';
 
-export default function PublicLayout({ children }: PropsWithChildren<{}>) {
+export default function PublicLayout() {
   const { loading } = useLoading(); // Access loading context
 
   return (
