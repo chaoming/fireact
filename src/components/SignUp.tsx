@@ -7,6 +7,7 @@ import PublicLayout from '../layouts/PublicLayout';
 export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const { signup } = useAuth();
@@ -22,7 +23,7 @@ export default function SignUp() {
 
     try {
       setError('');
-      await signup(email, password);
+      await signup(email, password, fullName);
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignUp'));
@@ -41,9 +42,19 @@ export default function SignUp() {
         <div className="rounded-md shadow-sm -space-y-px">
           <div>
             <input
-              type="email"
+              type="text"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder={t('fullName')}
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              type="email"
+              required
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder={t('email')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}

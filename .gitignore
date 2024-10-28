@@ -23,3 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 src/config.json
+.firebase/hosting.*
+.firebaserc
