@@ -7,8 +7,7 @@ import {
   User,
   Auth
 } from 'firebase/auth';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { auth } from '../firebase';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -34,15 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function signup(email: string, password: string, displayName: string) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    
-    // Create user document in Firestore
-    await setDoc(doc(db, 'users', userCredential.user.uid), {
-      creationTime: serverTimestamp(),
-      displayName: displayName,
-      photoURL: null
-    });
-
-    return userCredential;
+    return userCredential; // Return userCredential for further processing
   }
 
   function signin(email: string, password: string) {
