@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import AuthenticatedLayout from '../layouts/AuthenticatedLayout';
-import { doc, getDoc, Timestamp } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import Avatar from './Avatar'; // Import the Avatar component
 
-interface UserData {
-  displayName: string;
-  creationTime: Timestamp;
-  photoURL: string | null;
+export interface UserData { // Export UserData type
+  display_name: string;
+  create_time: any; // Use appropriate type for Firestore timestamp
+  email: string;
+  email_verified: boolean;
+  avatar_url: string | null;
 }
 
 export default function Dashboard() {
@@ -56,18 +59,18 @@ export default function Dashboard() {
           </div>
           <div className="border-t border-gray-200">
             <dl>
-              {userData?.displayName && (
+              {userData?.display_name && (
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">{t('fullName')}</dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {userData.displayName}
+                    {userData.display_name}
                   </dd>
                 </div>
               )}
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">{t('email')}</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {currentUser?.email}
+                  {userData?.email}
                 </dd>
               </div>
               <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -79,17 +82,23 @@ export default function Dashboard() {
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">{t('emailVerified')}</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {currentUser?.emailVerified ? t('yes') : t('no')}
+                  {userData?.email_verified ? t('yes') : t('no')}
                 </dd>
               </div>
-              {userData?.creationTime && (
+              {userData?.create_time && (
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">{t('creationTime')}</dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {userData.creationTime.toDate().toLocaleString()}
+                    {userData.create_time.toDate().toLocaleString()}
                   </dd>
                 </div>
               )}
+              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">{t('avatar')}</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <Avatar userData={userData} />
+                </dd>
+              </div>
             </dl>
           </div>
         </div>
