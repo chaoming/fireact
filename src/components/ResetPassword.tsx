@@ -3,16 +3,16 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import PublicLayout from '../layouts/PublicLayout';
+import { useLoading } from '../contexts/LoadingContext';
 
 export default function ResetPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { auth } = useAuth();
+  const { setLoading } = useLoading(); // Access loading context
 
   async function handleResetPassword(e: React.FormEvent) {
     e.preventDefault();
@@ -29,7 +29,7 @@ export default function ResetPassword() {
   }
 
   return (
-    <PublicLayout loading={loading}>
+    <div>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           {t('resetPassword')}
@@ -72,6 +72,6 @@ export default function ResetPassword() {
           {t('backToSignIn')}
         </button>
       </div>
-    </PublicLayout>
+    </div>
   );
 }

@@ -1,15 +1,12 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import Logo from '../components/Logo';
+import { Outlet } from 'react-router-dom';
 
-interface AuthenticatedLayoutProps {
-  children: ReactNode;
-}
-
-export default function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
+export default function AuthenticatedLayout() {
   const { signout } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -163,7 +160,7 @@ export default function AuthenticatedLayout({ children }: AuthenticatedLayoutPro
         {/* Main Content */}
         <div className="flex-1 min-h-screen transition-all duration-300 ease-in-out">
           <main className="py-6 px-4 sm:px-6 lg:px-8">
-            {children}
+            <Outlet />
           </main>
         </div>
       </div>

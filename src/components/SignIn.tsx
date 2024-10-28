@@ -2,17 +2,17 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import PublicLayout from '../layouts/PublicLayout';
 import { auth } from '../firebase'; // Importing auth from firebase.ts
 import { GoogleAuthProvider, signInWithPopup, OAuthProvider, FacebookAuthProvider, GithubAuthProvider, TwitterAuthProvider } from 'firebase/auth'; // Importing necessary methods
 import config from '../config.json';
 import { saveUserToFirestore } from '../utils/userUtils'; // Import the utility function
+import { useLoading } from '../contexts/LoadingContext'; // Import loading context
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state
+  const { setLoading } = useLoading(); // Access loading context
   const { signin } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -137,7 +137,7 @@ export default function SignIn() {
   }
 
   return (
-    <PublicLayout loading={loading}>
+    <div>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           {t('signInToAccount')}
@@ -257,6 +257,6 @@ export default function SignIn() {
           </button>
         )}
       </div>
-    </PublicLayout>
+    </div>
   );
 }

@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import PublicLayout from '../layouts/PublicLayout';
 import { saveUserToFirestore } from '../utils/userUtils'; // Import the utility function
+import { useLoading } from '../contexts/LoadingContext'; // Import loading context
 
 export default function SignUp() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state
   const { signup } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { setLoading } = useLoading(); // Access loading context
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -32,7 +32,7 @@ export default function SignUp() {
   }
 
   return (
-    <PublicLayout loading={loading}>
+    <div>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           {t('createAccount')}
@@ -102,6 +102,6 @@ export default function SignUp() {
           </Link>
         </p>
       </div>
-    </PublicLayout>
+    </div>
   );
 }

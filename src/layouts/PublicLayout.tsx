@@ -1,13 +1,12 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import Logo from '../components/Logo';
+import { Outlet } from 'react-router-dom';
+import { useLoading } from '../contexts/LoadingContext';
 
-interface PublicLayoutProps {
-  children: ReactNode;
-  loading?: boolean; // Add loading prop
-}
+export default function PublicLayout({ children }: PropsWithChildren<{}>) {
+  const { loading } = useLoading(); // Access loading context
 
-export default function PublicLayout({ children, loading }: PublicLayoutProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 relative">
       {loading && (
@@ -22,7 +21,7 @@ export default function PublicLayout({ children, loading }: PublicLayoutProps) {
             <LanguageSwitcher />
           </div>
         </div>
-        {children}
+        <Outlet />
       </div>
     </div>
   );
