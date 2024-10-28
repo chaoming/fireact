@@ -4,7 +4,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import PublicLayout from '../layouts/PublicLayout';
 import { auth } from '../firebase'; // Importing auth from firebase.ts
-import { GoogleAuthProvider, signInWithPopup, OAuthProvider, FacebookAuthProvider, GithubAuthProvider, TwitterAuthProvider } from 'firebase/auth'; // Importing necessary methods
+import { GoogleAuthProvider, signInWithPopup, OAuthProvider, FacebookAuthProvider, GithubAuthProvider, TwitterAuthProvider, User } from 'firebase/auth'; // Importing necessary methods
+import { db } from '../firebase'; // Import Firestore
+import { doc, setDoc } from 'firebase/firestore'; // Import Firestore methods
 import config from '../config.json';
 
 export default function SignIn() {
@@ -34,7 +36,9 @@ export default function SignIn() {
     const provider = new GoogleAuthProvider();
     setLoading(true); // Set loading to true
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      await saveUserToFirestore(user); // Save user to Firestore
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -47,7 +51,9 @@ export default function SignIn() {
     const provider = new OAuthProvider('microsoft.com');
     setLoading(true); // Set loading to true
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      await saveUserToFirestore(user); // Save user to Firestore
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -60,7 +66,9 @@ export default function SignIn() {
     const provider = new FacebookAuthProvider();
     setLoading(true); // Set loading to true
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      await saveUserToFirestore(user); // Save user to Firestore
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -73,7 +81,9 @@ export default function SignIn() {
     const provider = new OAuthProvider('apple.com');
     setLoading(true); // Set loading to true
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      await saveUserToFirestore(user); // Save user to Firestore
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -86,7 +96,9 @@ export default function SignIn() {
     const provider = new GithubAuthProvider();
     setLoading(true); // Set loading to true
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      await saveUserToFirestore(user); // Save user to Firestore
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -99,7 +111,9 @@ export default function SignIn() {
     const provider = new TwitterAuthProvider();
     setLoading(true); // Set loading to true
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      await saveUserToFirestore(user); // Save user to Firestore
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -112,7 +126,9 @@ export default function SignIn() {
     const provider = new OAuthProvider('yahoo.com');
     setLoading(true); // Set loading to true
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      await saveUserToFirestore(user); // Save user to Firestore
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -121,13 +137,18 @@ export default function SignIn() {
     }
   }
 
+  async function saveUserToFirestore(user: User) { // Explicitly typing user
+    const userRef = doc(db, 'users', user.uid);
+    await setDoc(userRef, {
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      // Add any other user data you want to save
+    }, { merge: true }); // Use merge to avoid overwriting existing data
+  }
+
   return (
-    <PublicLayout>
-      {loading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-        </div>
-      )}
+    <PublicLayout loading={loading}>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           {t('signInToAccount')}
