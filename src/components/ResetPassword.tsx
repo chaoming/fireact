@@ -9,23 +9,27 @@ export default function ResetPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Loading state
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { auth } = useAuth();
 
   async function handleResetPassword(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true); // Set loading to true
     try {
       setError('');
       await sendPasswordResetEmail(auth, email);
-      setMessage('Password reset email sent! Check your inbox.');
+      setMessage(t('passwordResetEmailSent')); // Use translation for message
     } catch (err) {
-      setError('Failed to send reset email. Please try again.');
+      setError(t('failedToSendResetEmail')); // Use translation for error
+    } finally {
+      setLoading(false); // Set loading to false after the process
     }
   }
 
   return (
-    <PublicLayout>
+    <PublicLayout loading={loading}>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           {t('resetPassword')}
@@ -56,7 +60,7 @@ export default function ResetPassword() {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Send Reset Email
+            {t('sendResetEmail')}
           </button>
         </div>
       </form>
@@ -65,7 +69,7 @@ export default function ResetPassword() {
           onClick={() => navigate('/signin')}
           className="text-sm text-indigo-600 hover:text-indigo-500"
         >
-          Back to Sign In
+          {t('backToSignIn')}
         </button>
       </div>
     </PublicLayout>

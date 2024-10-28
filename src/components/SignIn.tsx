@@ -4,10 +4,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import PublicLayout from '../layouts/PublicLayout';
 import { auth } from '../firebase'; // Importing auth from firebase.ts
-import { GoogleAuthProvider, signInWithPopup, OAuthProvider, FacebookAuthProvider, GithubAuthProvider, TwitterAuthProvider, User } from 'firebase/auth'; // Importing necessary methods
-import { db } from '../firebase'; // Import Firestore
-import { doc, setDoc } from 'firebase/firestore'; // Import Firestore methods
+import { GoogleAuthProvider, signInWithPopup, OAuthProvider, FacebookAuthProvider, GithubAuthProvider, TwitterAuthProvider } from 'firebase/auth'; // Importing necessary methods
 import config from '../config.json';
+import { saveUserToFirestore } from '../utils/userUtils'; // Import the utility function
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -38,7 +37,7 @@ export default function SignIn() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user); // Save user to Firestore
+      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -53,7 +52,7 @@ export default function SignIn() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user); // Save user to Firestore
+      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -68,7 +67,7 @@ export default function SignIn() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user); // Save user to Firestore
+      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -83,7 +82,7 @@ export default function SignIn() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user); // Save user to Firestore
+      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -98,7 +97,7 @@ export default function SignIn() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user); // Save user to Firestore
+      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -113,7 +112,7 @@ export default function SignIn() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user); // Save user to Firestore
+      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
@@ -128,23 +127,13 @@ export default function SignIn() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user); // Save user to Firestore
+      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
       setLoading(false); // Set loading to false after the process
     }
-  }
-
-  async function saveUserToFirestore(user: User) { // Explicitly typing user
-    const userRef = doc(db, 'users', user.uid);
-    await setDoc(userRef, {
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
-      // Add any other user data you want to save
-    }, { merge: true }); // Use merge to avoid overwriting existing data
   }
 
   return (

@@ -11,7 +11,7 @@ import { auth } from '../firebase';
 
 interface AuthContextType {
   currentUser: User | null;
-  signup: (email: string, password: string, displayName: string) => Promise<any>;
+  signup: (email: string, password: string) => Promise<any>; // Removed displayName
   signin: (email: string, password: string) => Promise<any>;
   signout: () => Promise<void>;
   auth: Auth; // Added auth property
@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  async function signup(email: string, password: string, displayName: string) {
+  async function signup(email: string, password: string) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return userCredential; // Return userCredential for further processing
   }
