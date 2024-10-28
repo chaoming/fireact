@@ -7,6 +7,7 @@ Fireact is a React web application built with TypeScript, TailwindCSS, and Fireb
 - [Installation](#installation)
 - [Creating config.json](#creating-configjson)
 - [Firebase Setup](#firebase-setup)
+- [Build Process](#build-process)
 - [Running the Application](#running-the-application)
 - [Deploying to Firebase](#deploying-to-firebase)
 
@@ -62,9 +63,19 @@ Replace the placeholders with your Firebase project credentials. You can find th
    firebase init
    ```
    - Select Firestore and Hosting.
+   - When prompted for the public directory, specify `dist` to ensure Firebase deploys the correct folder.
    - Follow the prompts to set up your project.
 
 4. Create the Firestore rules file (`firestore.rules`) and set the rules to allow authenticated users to access their own documents.
+
+## Build Process
+Before deploying to Firebase, you need to build the application. Use the following command to create a production build:
+
+```bash
+npm run build
+```
+
+This will generate the necessary files in the `dist` folder, which will be used for deployment.
 
 ## Running the Application
 To run the application locally, use:
