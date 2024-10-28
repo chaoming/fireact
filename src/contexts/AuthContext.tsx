@@ -4,7 +4,8 @@ import {
   signInWithEmailAndPassword, 
   signOut, 
   onAuthStateChanged,
-  User
+  User,
+  Auth
 } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../firebase';
@@ -14,6 +15,7 @@ interface AuthContextType {
   signup: (email: string, password: string, displayName: string) => Promise<any>;
   signin: (email: string, password: string) => Promise<any>;
   signout: () => Promise<void>;
+  auth: Auth; // Added auth property
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -31,24 +33,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   async function signup(email: string, password: string, displayName: string) {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      
-      // Create user document in Firestore
-      const userData = {
-        creationTime: serverTimestamp(),
-        displayName: displayName,
-        photoURL: null
-      };
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    
+    // Create user document in Firestore
+    await setDoc(doc(db, 'users', userCredential.user.uid), {
+      creationTime: serverTimestamp(),
+      displayName: displayName,
+      photoURL: null
+    });
 
-      await setDoc(doc(db, 'users', userCredential.user.uid), userData);
-      console.log('User document created successfully'); // Debug log
-
-      return userCredential;
-    } catch (error) {
-      console.error('Error during signup:', error); // Debug log
-      throw error;
-    }
+    return userCredential;
   }
 
   function signin(email: string, password: string) {
@@ -72,7 +66,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     currentUser,
     signup,
     signin,
-    signout
+    signout,
+    auth // Exporting auth instance
   };
 
   return (

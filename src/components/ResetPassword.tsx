@@ -1,25 +1,26 @@
 import { useState } from 'react';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import PublicLayout from '../layouts/PublicLayout';
 
-export default function SignIn() {
+export default function ResetPassword() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const { signin } = useAuth();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { auth } = useAuth();
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleResetPassword(e: React.FormEvent) {
     e.preventDefault();
     try {
       setError('');
-      await signin(email, password);
-      navigate('/dashboard');
+      await sendPasswordResetEmail(auth, email);
+      setMessage('Password reset email sent! Check your inbox.');
     } catch (err) {
-      setError(t('failedSignIn'));
+      setError('Failed to send reset email. Please try again.');
     }
   }
 
@@ -27,11 +28,12 @@ export default function SignIn() {
     <PublicLayout>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          {t('signInToAccount')}
+          {t('resetPassword')}
         </h2>
       </div>
+      {message && <div className="text-green-500 text-center mt-2">{message}</div>}
       {error && <div className="text-red-500 text-center mt-2">{error}</div>}
-      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+      <form className="mt-8 space-y-6" onSubmit={handleResetPassword}>
         <div className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -47,20 +49,6 @@ export default function SignIn() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              {t('password')}
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
         </div>
 
         <div>
@@ -68,23 +56,17 @@ export default function SignIn() {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            {t('signin')}
+            Send Reset Email
           </button>
         </div>
       </form>
       <div className="text-center mt-4">
-        <p className="text-sm text-gray-600">
-          {t('dontHaveAccount')}{' '}
-          <Link to="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
-            {t('signup')}
-          </Link>
-        </p>
-        <Link
-          to="/reset-password"
+        <button
+          onClick={() => navigate('/signin')}
           className="text-sm text-indigo-600 hover:text-indigo-500"
         >
-          Forgot Password?
-        </Link>
+          Back to Sign In
+        </button>
       </div>
     </PublicLayout>
   );
