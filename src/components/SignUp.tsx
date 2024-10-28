@@ -37,45 +37,61 @@ export default function SignUp() {
           {t('createAccount')}
         </h2>
       </div>
-      {error && <div className="text-red-500 text-center">{error}</div>}
+      {error && <div className="text-red-500 text-center mt-2">{error}</div>}
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-        <div className="rounded-md shadow-sm -space-y-px">
+        <div className="space-y-4">
           <div>
+            <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
+              {t('fullName')}
+            </label>
             <input
+              id="fullName"
+              name="fullName"
               type="text"
               required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder={t('fullName')}
+              className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
             />
           </div>
           <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              {t('email')}
+            </label>
             <input
+              id="email"
+              name="email"
               type="email"
               required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder={t('email')}
+              className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              {t('password')}
+            </label>
             <input
+              id="password"
+              name="password"
               type="password"
               required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder={t('password')}
+              className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+              {t('confirmPassword')}
+            </label>
             <input
+              id="confirmPassword"
+              name="confirmPassword"
               type="password"
               required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder={t('confirmPassword')}
+              className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -91,7 +107,7 @@ export default function SignUp() {
           </button>
         </div>
       </form>
-      <div className="text-center">
+      <div className="text-center mt-4">
         <p className="text-sm text-gray-600">
           {t('alreadyHaveAccount')}{' '}
           <Link to="/signin" className="font-medium text-indigo-600 hover:text-indigo-500">
