@@ -10,7 +10,6 @@ export interface UserData { // Export UserData type
   display_name: string;
   create_time: any; // Use appropriate type for Firestore timestamp
   email: string;
-  email_verified: boolean;
   avatar_url: string | null;
 }
 
@@ -82,7 +81,7 @@ export default function Dashboard() {
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">{t('emailVerified')}</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {userData?.email_verified ? t('yes') : t('no')}
+                  {currentUser?.emailVerified ? t('yes') : t('no')}
                 </dd>
               </div>
               {userData?.create_time && (

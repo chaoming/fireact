@@ -8,7 +8,6 @@ export async function saveUserToFirestore(user: User, displayName: string) {
     create_time: serverTimestamp(),
     display_name: displayName,
     email: user.email,
-    email_verified: false,
     avatar_url: user.photoURL,
   }, { merge: true }); // Use merge to avoid overwriting existing data
 }
