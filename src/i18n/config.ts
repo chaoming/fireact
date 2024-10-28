@@ -36,7 +36,8 @@ const resources = {
       "signInWithApple": "Sign in with Apple",
       "signInWithGitHub": "Sign in with GitHub",
       "signInWithTwitter": "Sign in with Twitter",
-      "signInWithYahoo": "Sign in with Yahoo"
+      "signInWithYahoo": "Sign in with Yahoo",
+      "forgotPassword": "Forgot Password?" // New translation key
     }
   },
   zh: {
@@ -72,7 +73,8 @@ const resources = {
       "signInWithApple": "使用 Apple 登录",
       "signInWithGitHub": "使用 GitHub 登录",
       "signInWithTwitter": "使用 Twitter 登录",
-      "signInWithYahoo": "使用 Yahoo 登录"
+      "signInWithYahoo": "使用 Yahoo 登录",
+      "forgotPassword": "忘记密码？" // New translation key
     }
   }
 };
