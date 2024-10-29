@@ -45,9 +45,11 @@ const resources = {
       "failedToSendResetEmail": "Failed to send reset email. Please try again.",
       "avatar": "Avatar",
       "myProfile": "My Profile",
-      "editName": "Edit Name", // Added translation
-      "save": "Save", // Added translation
-      "cancel": "Cancel" // Added translation
+      "editName": "Edit Name",
+      "save": "Save",
+      "cancel": "Cancel",
+      "nameUpdateSuccess": "Your name has been updated successfully",
+      "nameUpdateError": "Failed to update your name. Please try again"
     }
   },
   zh: {
@@ -92,9 +94,11 @@ const resources = {
       "failedToSendResetEmail": "发送重置邮件失败。请再试一次。",
       "avatar": "头像",
       "myProfile": "我的资料",
-      "editName": "编辑姓名", // Added translation
-      "save": "保存", // Added translation
-      "cancel": "取消" // Added translation
+      "editName": "编辑姓名",
+      "save": "保存",
+      "cancel": "取消",
+      "nameUpdateSuccess": "您的姓名已更新成功",
+      "nameUpdateError": "更新姓名失败，请重试"
     }
   }
 };
