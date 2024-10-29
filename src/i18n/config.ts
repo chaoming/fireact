@@ -44,7 +44,10 @@ const resources = {
       "passwordResetEmailSent": "Password reset email sent! Check your inbox.",
       "failedToSendResetEmail": "Failed to send reset email. Please try again.",
       "avatar": "Avatar",
-      "myProfile": "My Profile"
+      "myProfile": "My Profile",
+      "editName": "Edit Name", // Added translation
+      "save": "Save", // Added translation
+      "cancel": "Cancel" // Added translation
     }
   },
   zh: {
@@ -88,7 +91,10 @@ const resources = {
       "passwordResetEmailSent": "密码重置邮件已发送！请检查您的收件箱。",
       "failedToSendResetEmail": "发送重置邮件失败。请再试一次。",
       "avatar": "头像",
-      "myProfile": "我的资料"
+      "myProfile": "我的资料",
+      "editName": "编辑姓名", // Added translation
+      "save": "保存", // Added translation
+      "cancel": "取消" // Added translation
     }
   }
 };
