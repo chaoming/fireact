@@ -25,7 +25,6 @@ export default function Dashboard() {
           const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
           if (userDoc.exists()) {
             const data = userDoc.data() as UserData;
-            console.log('Fetched user data:', data);
             setUserData(data);
           }
         } catch (error) {
