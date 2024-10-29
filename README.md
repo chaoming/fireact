@@ -11,6 +11,7 @@ Fireact is a React web application built with TypeScript, TailwindCSS, and Fireb
 - [Running the Application](#running-the-application)
 - [Deploying to Firebase](#deploying-to-firebase)
 - [Customizing the Logo](#customizing-the-logo)
+- [Internationalization (i18n)](#internationalization-i18n)
 
 ## Prerequisites
 - Node.js (v14 or later)
@@ -107,6 +108,81 @@ You can modify these paths according to your needs. The application will automat
 - Change page URLs without modifying multiple components
 - Maintain consistency in navigation throughout the application
 - Add new pages by simply adding them to the config
+
+## Internationalization (i18n)
+
+The application supports multiple languages through React-i18next. Language files are stored in `src/i18n/locales/` with each language having its own file (e.g., `en.ts`, `zh.ts`).
+
+### Adding a New Language
+
+1. Create a new file in `src/i18n/locales/` for your language (e.g., `ja.ts` for Japanese)
+2. Copy the structure from an existing language file (e.g., `en.ts`)
+3. Translate all the labels to your new language
+4. Add the language name in its native form as the first entry:
+   ```typescript
+   export default {
+     "languageName": "日本語", // Native name of the language
+     // ... rest of the translations
+   }
+   ```
+5. Import and add the new language in `App.tsx`:
+   ```typescript
+   import ja from './i18n/locales/ja';
+
+   // In the i18n.init configuration:
+   resources: {
+     en: {
+       translation: en
+     },
+     zh: {
+       translation: zh
+     },
+     ja: {
+       translation: ja
+     }
+   }
+   ```
+
+The language switcher will automatically display the new language option.
+
+### Adding New Labels
+
+To add new labels to the application:
+
+1. Add the new label to ALL language files in `src/i18n/locales/`:
+   ```typescript
+   // In en.ts
+   export default {
+     "languageName": "English",
+     "myNewLabel": "My New Label",
+     // ... existing labels
+   }
+
+   // In zh.ts
+   export default {
+     "languageName": "中文",
+     "myNewLabel": "我的新标签",
+     // ... existing labels
+   }
+
+   // Add to all other language files
+   ```
+
+2. Use the new label in your components with the `useTranslation` hook:
+   ```typescript
+   import { useTranslation } from 'react-i18next';
+
+   function MyComponent() {
+     const { t } = useTranslation();
+     return <div>{t('myNewLabel')}</div>;
+   }
+   ```
+
+Important notes:
+- Always add new labels to ALL language files to avoid missing translations
+- Use descriptive keys that reflect the content
+- Keep translations organized in a similar order across all language files
+- The language switcher uses the "languageName" key to display language options in their native form
 
 ### Customizing the Logo
 The application's logo is centrally managed in the `App.tsx` file, making it easy to replace or modify. The Logo component is passed as a prop to both the authenticated and public layouts, which means you only need to update it in one place to change it throughout the application.
