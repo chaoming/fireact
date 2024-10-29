@@ -49,6 +49,18 @@ Create a `config.json` file in the `src` directory with the following structure:
     "github": false,
     "twitter": false,
     "yahoo": false
+  },
+  "pages": {
+    "home": "/",
+    "dashboard": "/dashboard",
+    "profile": "/profile",
+    "editName": "/edit-name",
+    "editEmail": "/edit-email",
+    "changePassword": "/change-password",
+    "deleteAccount": "/delete-account",
+    "signIn": "/signin",
+    "signUp": "/signup",
+    "resetPassword": "/reset-password"
   }
 }
 ```
@@ -71,6 +83,29 @@ In the `socialLogin` section of the `config.json` file, you can enable or disabl
 ```
 
 This allows you to control which sign-in methods are available in your application without needing to modify the code in `SignIn.tsx`.
+
+### Configuring Page Paths
+The `pages` section in the `config.json` file centralizes all the application's page paths. This makes it easier to manage and update routes throughout the application. Here's the default configuration with all available pages:
+
+```json
+"pages": {
+  "home": "/",
+  "dashboard": "/dashboard",
+  "profile": "/profile",
+  "editName": "/edit-name",
+  "editEmail": "/edit-email",
+  "changePassword": "/change-password",
+  "deleteAccount": "/delete-account",
+  "signIn": "/signin",
+  "signUp": "/signup",
+  "resetPassword": "/reset-password"
+}
+```
+
+You can modify these paths according to your needs. The application will automatically use these configured paths for routing and navigation. This centralized approach makes it easy to:
+- Change page URLs without modifying multiple components
+- Maintain consistency in navigation throughout the application
+- Add new pages by simply adding them to the config
 
 ## Firebase Setup
 1. Initialize Firebase in your project:

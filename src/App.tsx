@@ -30,18 +30,18 @@ function App() {
                   mobileMenuItems={<MobileMenuItems />}
                 />
               }>
-                <Route path="/" element={<Navigate to="/dashboard" />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/edit-name" element={<EditName />} />
-                <Route path="/edit-email" element={<EditEmail />} />
-                <Route path="/change-password" element={<ChangePassword />} />
-                <Route path="/delete-account" element={<DeleteAccount />} />
+                <Route path={config.pages.home} element={<Navigate to={config.pages.dashboard} />} />
+                <Route path={config.pages.dashboard} element={<Dashboard />} />
+                <Route path={config.pages.profile} element={<Profile />} />
+                <Route path={config.pages.editName} element={<EditName />} />
+                <Route path={config.pages.editEmail} element={<EditEmail />} />
+                <Route path={config.pages.changePassword} element={<ChangePassword />} />
+                <Route path={config.pages.deleteAccount} element={<DeleteAccount />} />
               </Route>
               <Route element={<PublicLayout />}>
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path={config.pages.signIn} element={<SignIn />} />
+                <Route path={config.pages.signUp} element={<SignUp />} />
+                <Route path={config.pages.resetPassword} element={<ResetPassword />} />
               </Route>
             </Routes>
           </LoadingProvider>

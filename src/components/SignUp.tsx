@@ -15,7 +15,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { setLoading } = useLoading();
-  const { db } = useConfig();
+  const { db, pages } = useConfig();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -25,7 +25,7 @@ export default function SignUp() {
       const userCredential = await signup(email, password);
       // Pass db instance to saveUserToFirestore
       await saveUserToFirestore(userCredential.user, fullName, db);
-      navigate('/dashboard');
+      navigate(pages.dashboard);
     } catch (err) {
       console.error('Signup error:', err);
       setError(t('failedSignUp'));
@@ -81,7 +81,7 @@ export default function SignUp() {
               name="password"
               type="password"
               required
-              className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -100,7 +100,7 @@ export default function SignUp() {
       <div className="text-center mt-4">
         <p className="text-sm text-gray-600">
           {t('alreadyHaveAccount')}{' '}
-          <Link to="/signin" className="font-medium text-indigo-600 hover:text-indigo-500">
+          <Link to={pages.signIn} className="font-medium text-indigo-600 hover:text-indigo-500">
             {t('signin')}
           </Link>
         </p>

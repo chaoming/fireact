@@ -17,7 +17,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
-  const { db } = useConfig();
+  const { db, pages } = useConfig();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -131,7 +131,7 @@ export default function Profile() {
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
                   {userData.display_name}
                   <Link 
-                    to="/edit-name" 
+                    to={pages.editName}
                     className="text-gray-400 hover:text-gray-500"
                     title={t('editName')}
                   >
@@ -158,7 +158,7 @@ export default function Profile() {
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
                 {currentUser?.email}
                 <Link 
-                  to="/edit-email" 
+                  to={pages.editEmail}
                   className="text-gray-400 hover:text-gray-500"
                   title={t('editEmail')}
                 >
@@ -234,7 +234,7 @@ export default function Profile() {
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
                 <span>••••••</span>
                 <Link 
-                  to="/change-password" 
+                  to={pages.changePassword}
                   className="text-gray-400 hover:text-gray-500"
                   title={t('changePassword')}
                 >
@@ -276,7 +276,7 @@ export default function Profile() {
         <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
           <div className="flex justify-end">
             <Link
-              to="/delete-account"
+              to={pages.deleteAccount}
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               <svg

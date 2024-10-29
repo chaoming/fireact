@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useLoading } from '../contexts/LoadingContext';
+import { useConfig } from '../contexts/ConfigContext';
 
 export default function ResetPassword() {
   const [email, setEmail] = useState('');
@@ -13,6 +14,7 @@ export default function ResetPassword() {
   const navigate = useNavigate();
   const { auth } = useAuth();
   const { setLoading } = useLoading(); // Access loading context
+  const { pages } = useConfig();
 
   async function handleResetPassword(e: React.FormEvent) {
     e.preventDefault();
@@ -66,7 +68,7 @@ export default function ResetPassword() {
       </form>
       <div className="text-center mt-4">
         <button
-          onClick={() => navigate('/signin')}
+          onClick={() => navigate(pages.signIn)}
           className="text-sm text-indigo-600 hover:text-indigo-500"
         >
           {t('backToSignIn')}

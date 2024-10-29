@@ -15,7 +15,7 @@ export default function SignIn() {
   const { signin } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { socialLogin, auth, db } = useConfig();
+  const { socialLogin, auth, db, pages } = useConfig();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,7 +23,7 @@ export default function SignIn() {
     try {
       setError('');
       await signin(email, password);
-      navigate('/dashboard');
+      navigate(pages.dashboard);
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
@@ -38,7 +38,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       await saveUserToFirestore(user, user.displayName || "", db);
-      navigate('/dashboard');
+      navigate(pages.dashboard);
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
@@ -53,7 +53,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       await saveUserToFirestore(user, user.displayName || "", db);
-      navigate('/dashboard');
+      navigate(pages.dashboard);
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
@@ -68,7 +68,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       await saveUserToFirestore(user, user.displayName || "", db);
-      navigate('/dashboard');
+      navigate(pages.dashboard);
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
@@ -83,7 +83,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       await saveUserToFirestore(user, user.displayName || "", db);
-      navigate('/dashboard');
+      navigate(pages.dashboard);
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
@@ -98,7 +98,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       await saveUserToFirestore(user, user.displayName || "", db);
-      navigate('/dashboard');
+      navigate(pages.dashboard);
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
@@ -113,7 +113,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       await saveUserToFirestore(user, user.displayName || "", db);
-      navigate('/dashboard');
+      navigate(pages.dashboard);
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
@@ -128,7 +128,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       await saveUserToFirestore(user, user.displayName || "", db);
-      navigate('/dashboard');
+      navigate(pages.dashboard);
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
@@ -188,12 +188,12 @@ export default function SignIn() {
       <div className="text-center mt-4">
         <p className="text-sm text-gray-600">
           {t('dontHaveAccount')}{' '}
-          <Link to="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
+          <Link to={pages.signUp} className="font-medium text-indigo-600 hover:text-indigo-500">
             {t('signup')}
           </Link>
         </p>
         <Link
-          to="/reset-password"
+          to={pages.resetPassword}
           className="text-sm text-indigo-600 hover:text-indigo-500"
         >
           {t('forgotPassword')}

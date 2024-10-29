@@ -21,6 +21,7 @@ interface ConfigContextType {
     twitter: boolean;
     yahoo: boolean;
   };
+  pages: Record<string, string>;
   auth: Auth;
   db: Firestore;
 }

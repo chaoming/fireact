@@ -25,7 +25,7 @@ export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
-  const { db } = useConfig();
+  const { db, pages } = useConfig();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -48,7 +48,7 @@ export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems 
   async function handleSignOut() {
     try {
       await signout();
-      navigate('/');
+      navigate(pages.home);
     } catch (error) {
       console.error('Failed to sign out');
     }
@@ -125,7 +125,7 @@ export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems 
                   <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div className="py-1" role="menu" aria-orientation="vertical">
                       <Link
-                        to="/profile"
+                        to={pages.profile}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                         onClick={() => setIsDropdownOpen(false)}
@@ -158,9 +158,9 @@ export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems 
             <div className="pt-2 pb-3">
               {mobileMenuItems}
               <Link
-                to="/profile"
+                to={pages.profile}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
-                  location.pathname === '/profile'
+                  location.pathname === pages.profile
                     ? 'bg-indigo-100 text-indigo-600'
                     : 'text-gray-200 hover:bg-gray-700'
                 }`}

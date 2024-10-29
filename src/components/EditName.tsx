@@ -18,7 +18,7 @@ const EditName: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setLoading: setGlobalLoading } = useLoading();
   const navigate = useNavigate();
-  const { db } = useConfig();
+  const { db, pages } = useConfig();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -53,7 +53,7 @@ const EditName: React.FC = () => {
 
         setMessage({ type: 'success', text: t('nameUpdateSuccess') });
         setTimeout(() => {
-          navigate('/profile');
+          navigate(pages.profile);
         }, 1500);
       } catch (error) {
         console.error('Error updating name:', error);
@@ -108,7 +108,7 @@ const EditName: React.FC = () => {
             <div className="mt-6 flex justify-end space-x-3">
               <button
                 type="button"
-                onClick={() => navigate('/profile')}
+                onClick={() => navigate(pages.profile)}
                 className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 disabled={isSubmitting}
               >

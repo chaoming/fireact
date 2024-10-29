@@ -6,6 +6,7 @@ import { FirebaseError } from 'firebase/app';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Message from './Message';
+import { useConfig } from '../contexts/ConfigContext';
 
 const ChangePassword: React.FC = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ const ChangePassword: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setLoading: setGlobalLoading } = useLoading();
   const navigate = useNavigate();
+  const { pages } = useConfig();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +36,7 @@ const ChangePassword: React.FC = () => {
         await updatePassword(currentUser, password);
         setMessage({ type: 'success', text: t('passwordUpdateSuccess') });
         setTimeout(() => {
-          navigate('/profile');
+          navigate(pages.profile);
         }, 1500);
       } catch (error) {
         console.error('Error updating password:', error);
@@ -106,7 +108,7 @@ const ChangePassword: React.FC = () => {
             <div className="mt-6 flex justify-end space-x-3">
               <button
                 type="button"
-                onClick={() => navigate('/profile')}
+                onClick={() => navigate(pages.profile)}
                 className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 disabled={isSubmitting}
               >

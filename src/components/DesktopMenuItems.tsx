@@ -1,23 +1,25 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
+import { useConfig } from '../contexts/ConfigContext';
 
 export default function DesktopMenuItems() {
   const { t } = useTranslation();
   const location = useLocation();
+  const { pages } = useConfig();
 
   return (
     <nav className="mt-5 px-2">
       <Link
-        to="/dashboard"
+        to={pages.dashboard}
         className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
-          location.pathname === '/dashboard'
+          location.pathname === pages.dashboard
             ? 'bg-indigo-100 text-indigo-600'
             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
         }`}
       >
         <svg
           className={`[.w-20_&]:mx-auto [.w-64_&]:mr-4 h-6 w-6 ${
-            location.pathname === '/dashboard'
+            location.pathname === pages.dashboard
               ? 'text-indigo-600'
               : 'text-gray-400 group-hover:text-gray-500'
           }`}
