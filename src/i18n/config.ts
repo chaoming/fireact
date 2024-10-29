@@ -50,6 +50,7 @@ const resources = {
       "editEmail": "Edit Email",
       "editPassword": "Change Password",
       "verifyEmail": "Verify Email",
+      "resendVerification": "Resend Verification",
       "save": "Save",
       "cancel": "Cancel",
       "nameUpdateSuccess": "Your name has been updated successfully",
@@ -58,7 +59,9 @@ const resources = {
       "emailUpdateError": "Failed to update your email. Please try again",
       "emailVerificationRequired": "Please verify your current email address before changing to a new one. Check your email inbox for a verification link.",
       "emailVerificationSent": "Verification email sent. Please check your inbox.",
-      "emailVerificationError": "Failed to send verification email. Please try again."
+      "emailVerificationError": "Failed to send verification email. Please try again.",
+      "emailVerificationResent": "A new verification email has been sent to your inbox.",
+      "emailVerificationTooManyRequests": "Too many verification email requests. Please wait a while before trying again."
     }
   },
   zh: {
@@ -108,6 +111,7 @@ const resources = {
       "editEmail": "编辑邮箱",
       "editPassword": "修改密码",
       "verifyEmail": "验证邮箱",
+      "resendVerification": "重新发送验证",
       "save": "保存",
       "cancel": "取消",
       "nameUpdateSuccess": "您的姓名已更新成功",
@@ -116,7 +120,9 @@ const resources = {
       "emailUpdateError": "更新邮箱失败，请重试",
       "emailVerificationRequired": "更改邮箱前请先验证当前邮箱地址。请检查您的邮箱收件箱查看验证链接。",
       "emailVerificationSent": "验证邮件已发送，请检查您的收件箱。",
-      "emailVerificationError": "发送验证邮件失败，请重试。"
+      "emailVerificationError": "发送验证邮件失败，请重试。",
+      "emailVerificationResent": "新的验证邮件已发送到您的收件箱。",
+      "emailVerificationTooManyRequests": "验证邮件请求过于频繁，请稍后再试。"
     }
   }
 };

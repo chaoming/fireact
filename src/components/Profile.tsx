@@ -4,10 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { sendEmailVerification } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 import Avatar from './Avatar';
 import { UserData } from './Dashboard';
 import { Link } from 'react-router-dom';
 import Message from './Message';
+
+// ... (previous imports remain the same)
 
 export default function Profile() {
   const { currentUser } = useAuth();
@@ -15,6 +18,7 @@ export default function Profile() {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -36,13 +40,30 @@ export default function Profile() {
   }, [currentUser]);
 
   const handleVerifyEmail = async () => {
-    if (currentUser && !currentUser.emailVerified) {
+    if (currentUser) {
+      setIsVerifying(true);
       try {
         await sendEmailVerification(currentUser);
-        setMessage({ type: 'success', text: t('emailVerificationSent') });
-      } catch (error) {
+        setMessage({ 
+          type: 'success', 
+          text: currentUser.emailVerified ? t('emailVerificationResent') : t('emailVerificationSent')
+        });
+      } catch (error: unknown) {
         console.error('Error sending verification email:', error);
-        setMessage({ type: 'error', text: t('emailVerificationError') });
+        if (error instanceof FirebaseError) {
+          if (error.code === 'auth/too-many-requests') {
+            setMessage({ 
+              type: 'error', 
+              text: t('emailVerificationTooManyRequests')
+            });
+          } else {
+            setMessage({ type: 'error', text: t('emailVerificationError') });
+          }
+        } else {
+          setMessage({ type: 'error', text: t('emailVerificationError') });
+        }
+      } finally {
+        setIsVerifying(false);
       }
     }
   };
@@ -154,7 +175,7 @@ export default function Profile() {
                       strokeLinecap="round" 
                       strokeLinejoin="round" 
                       d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" 
-                    />
+                      />
                   </svg>
                 </Link>
               </dd>
@@ -163,12 +184,34 @@ export default function Profile() {
               <dt className="text-sm font-medium text-gray-500">{t('emailVerified')}</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
                 <span>{currentUser?.emailVerified ? t('yes') : t('no')}</span>
-                {!currentUser?.emailVerified && (
-                  <button
-                    onClick={handleVerifyEmail}
-                    className="text-gray-400 hover:text-gray-500"
-                    title={t('verifyEmail')}
-                  >
+                <button
+                  onClick={handleVerifyEmail}
+                  disabled={isVerifying}
+                  className="text-gray-400 hover:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  title={currentUser?.emailVerified ? t('resendVerification') : t('verifyEmail')}
+                >
+                  {isVerifying ? (
+                    <svg
+                      className="animate-spin h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                  ) : (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -183,8 +226,8 @@ export default function Profile() {
                         d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
                       />
                     </svg>
-                  </button>
-                )}
+                  )}
+                </button>
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
