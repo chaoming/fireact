@@ -67,16 +67,6 @@ Add Tailwind directives to your CSS:
     "twitter": false,  // Enable/disable Twitter sign-in
     "yahoo": false     // Enable/disable Yahoo sign-in
   },
-  "languages": {
-    "en": {
-      "name": "English",
-      "enabled": true
-    },
-    "zh": {
-      "name": "中文",
-      "enabled": true
-    }
-  },
   "pages": {
     "home": "/",
     "dashboard": "/dashboard",
@@ -145,7 +135,26 @@ import {
   Logo
 } from '@fireact/core';
 import config from './config.json';
-import i18n from './i18n';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import en from './i18n/locales/en';
+import zh from './i18n/locales/zh';
+
+// Initialize i18next
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: { translation: en },
+      zh: { translation: zh }
+    },
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false
+    }
+  });
 
 // Initialize Firebase with your config
 const app = initializeApp(config.firebase);
@@ -202,31 +211,7 @@ src/
 Download the language files from:
 https://github.com/chaoming/fireact/tree/main/src/i18n/locales
 
-Then create an i18n.ts file:
-
-```typescript
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import en from './locales/en';
-import zh from './locales/zh';
-
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: { translation: en },
-      zh: { translation: zh }
-    },
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false
-    }
-  });
-
-export default i18n;
-```
+The i18n initialization is handled directly in the App.tsx file, where the language resources are imported and configured.
 
 6. Create index.css with Tailwind directives:
 
