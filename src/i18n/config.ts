@@ -75,7 +75,9 @@ const resources = {
       "confirmUUID": "Confirm User ID",
       "uuidMismatch": "User ID does not match. Please try again.",
       "accountDeleted": "Your account has been successfully deleted.",
-      "accountDeletionError": "Failed to delete your account. Please try again."
+      "accountDeletionError": "Failed to delete your account. Please try again.",
+      "welcome": "Welcome",
+      "welcomeBack": "Hi {{name}}, welcome back!"
     }
   },
   zh: {
@@ -150,7 +152,9 @@ const resources = {
       "confirmUUID": "确认用户ID",
       "uuidMismatch": "用户ID不匹配，请重试。",
       "accountDeleted": "您的账户已成功删除。",
-      "accountDeletionError": "删除账户失败，请重试。"
+      "accountDeletionError": "删除账户失败，请重试。",
+      "welcome": "欢迎",
+      "welcomeBack": "你好 {{name}}，欢迎回来！"
     }
   }
 };
