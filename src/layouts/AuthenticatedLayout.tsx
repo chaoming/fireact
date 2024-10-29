@@ -80,8 +80,9 @@ export default function AuthenticatedLayout() {
               </div>
             </div>
 
-            {/* Mobile menu button */}
-            <div className="flex items-center lg:hidden">
+            {/* Mobile menu and language selector */}
+            <div className="flex items-center space-x-2 lg:hidden">
+              <LanguageSwitcher />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="p-2 rounded-md text-gray-400 hover:text-gray-200 focus:outline-none"
@@ -143,7 +144,15 @@ export default function AuthenticatedLayout() {
 
           {/* Mobile menu */}
           <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-gray-900`}>
-            <div className="pt-2 pb-3 space-y-4">
+            {/* Divider */}
+            <div className="border-t border-gray-700"></div>
+            
+            {/* Menu Items */}
+            <div className="pt-2 pb-3">
+              <div className="flex items-center px-3 py-2 space-x-3">
+                <Avatar userData={userData} />
+                <span className="text-gray-400 text-sm">{userData?.display_name}</span>
+              </div>
               <Link
                 to="/dashboard"
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
@@ -164,12 +173,9 @@ export default function AuthenticatedLayout() {
               >
                 {t('myProfile')}
               </Link>
-              <div className="flex items-center justify-center mb-4">
-                <LanguageSwitcher />
-              </div>
               <button
                 onClick={handleSignOut}
-                className="w-full px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 mt-4"
+                className="w-full text-left px-3 py-2 text-base font-medium text-gray-200 hover:bg-gray-700 rounded-md"
               >
                 {t('signout')}
               </button>
