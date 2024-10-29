@@ -44,16 +44,21 @@ const resources = {
       "passwordResetEmailSent": "Password reset email sent! Check your inbox.",
       "failedToSendResetEmail": "Failed to send reset email. Please try again.",
       "avatar": "Avatar",
+      "avatarSocialLoginHint": "Avatar is synced with your social login provider",
       "myProfile": "My Profile",
       "editName": "Edit Name",
       "editEmail": "Edit Email",
+      "editPassword": "Change Password",
+      "verifyEmail": "Verify Email",
       "save": "Save",
       "cancel": "Cancel",
       "nameUpdateSuccess": "Your name has been updated successfully",
       "nameUpdateError": "Failed to update your name. Please try again",
       "emailUpdateSuccess": "Your email has been updated successfully",
       "emailUpdateError": "Failed to update your email. Please try again",
-      "emailVerificationRequired": "Please verify your current email address before changing to a new one. Check your email inbox for a verification link."
+      "emailVerificationRequired": "Please verify your current email address before changing to a new one. Check your email inbox for a verification link.",
+      "emailVerificationSent": "Verification email sent. Please check your inbox.",
+      "emailVerificationError": "Failed to send verification email. Please try again."
     }
   },
   zh: {
@@ -97,16 +102,21 @@ const resources = {
       "passwordResetEmailSent": "密码重置邮件已发送！请检查您的收件箱。",
       "failedToSendResetEmail": "发送重置邮件失败。请再试一次。",
       "avatar": "头像",
+      "avatarSocialLoginHint": "头像与您的社交登录提供商同步",
       "myProfile": "我的资料",
       "editName": "编辑姓名",
       "editEmail": "编辑邮箱",
+      "editPassword": "修改密码",
+      "verifyEmail": "验证邮箱",
       "save": "保存",
       "cancel": "取消",
       "nameUpdateSuccess": "您的姓名已更新成功",
       "nameUpdateError": "更新姓名失败，请重试",
       "emailUpdateSuccess": "您的邮箱已更新成功",
       "emailUpdateError": "更新邮箱失败，请重试",
-      "emailVerificationRequired": "更改邮箱前请先验证当前邮箱地址。请检查您的邮箱收件箱查看验证链接。"
+      "emailVerificationRequired": "更改邮箱前请先验证当前邮箱地址。请检查您的邮箱收件箱查看验证链接。",
+      "emailVerificationSent": "验证邮件已发送，请检查您的收件箱。",
+      "emailVerificationError": "发送验证邮件失败，请重试。"
     }
   }
 };
