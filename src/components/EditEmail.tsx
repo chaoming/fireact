@@ -1,9 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { useLoading } from '../contexts/LoadingContext';
-import { db } from '../firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { User, updateEmail } from 'firebase/auth';
+import { User, verifyBeforeUpdateEmail } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -13,32 +11,11 @@ const EditEmail: React.FC = () => {
   const { t } = useTranslation();
   const authContext = useContext(AuthContext);
   const currentUser = authContext?.currentUser as User | null;
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(currentUser?.email || '');
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
-  const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setLoading: setGlobalLoading } = useLoading();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function fetchUserData() {
-      if (currentUser) {
-        try {
-          const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
-          if (userDoc.exists()) {
-            const userData = userDoc.data();
-            setEmail(userData.email || '');
-          }
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-          setMessage({ type: 'error', text: t('emailUpdateError') });
-        }
-      }
-      setLoading(false);
-    }
-
-    fetchUserData();
-  }, [currentUser, t]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,14 +24,14 @@ const EditEmail: React.FC = () => {
       setGlobalLoading(true);
       setMessage(null);
       try {
-        await updateEmail(currentUser, email);
-        const userDocRef = doc(db, 'users', currentUser.uid);
-        await updateDoc(userDocRef, { email });
-
-        setMessage({ type: 'success', text: t('emailUpdateSuccess') });
+        await verifyBeforeUpdateEmail(currentUser, email);
+        setMessage({ 
+          type: 'success', 
+          text: t('emailVerificationSent')
+        });
         setTimeout(() => {
           navigate('/profile');
-        }, 1500);
+        }, 2000);
       } catch (error) {
         console.error('Error updating email:', error);
         if (error instanceof FirebaseError) {
@@ -72,14 +49,6 @@ const EditEmail: React.FC = () => {
       }
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-7xl mx-auto">

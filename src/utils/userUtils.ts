@@ -9,7 +9,6 @@ export async function saveUserToFirestore(user: User, displayName: string) {
   await setDoc(userRef, {
     create_time: userDoc.exists() && userDoc.data()?.create_time ? userDoc.data().create_time : serverTimestamp(),
     display_name: displayName,
-    email: user.email,
     avatar_url: user.photoURL,
   }, { merge: true }); // Use merge to avoid overwriting existing data
 }

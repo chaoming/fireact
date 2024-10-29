@@ -10,8 +10,6 @@ import { UserData } from './Dashboard';
 import { Link } from 'react-router-dom';
 import Message from './Message';
 
-// ... (previous imports remain the same)
-
 export default function Profile() {
   const { currentUser } = useAuth();
   const { t } = useTranslation();
@@ -157,7 +155,7 @@ export default function Profile() {
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">{t('email')}</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
-                {userData?.email}
+                {currentUser?.email}
                 <Link 
                   to="/edit-email" 
                   className="text-gray-400 hover:text-gray-500"
