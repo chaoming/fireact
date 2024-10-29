@@ -9,6 +9,7 @@ import EditName from './components/EditName';
 import EditEmail from './components/EditEmail';
 import ResetPassword from './components/ResetPassword';
 import ChangePassword from './components/ChangePassword';
+import DeleteAccount from './components/DeleteAccount';
 import PrivateRoute from './components/PrivateRoute';
 import AuthenticatedLayout from './layouts/AuthenticatedLayout';
 import PublicLayout from './layouts/PublicLayout';
@@ -58,6 +59,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <ChangePassword />
+                  </PrivateRoute>
+                } 
+              />
+              <Route 
+                path="/delete-account" 
+                element={
+                  <PrivateRoute>
+                    <DeleteAccount />
                   </PrivateRoute>
                 } 
               />

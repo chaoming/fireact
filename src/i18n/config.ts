@@ -67,7 +67,15 @@ const resources = {
       "passwordUpdateSuccess": "Your password has been updated successfully",
       "passwordUpdateError": "Failed to update your password. Please try again",
       "passwordMismatch": "Passwords do not match",
-      "reAuthenticationRequired": "Please sign in again before retry"
+      "reAuthenticationRequired": "Please sign in again before retry",
+      "deleteAccount": "Delete Account",
+      "warning": "Warning",
+      "deleteAccountWarning": "This action cannot be undone. All your data will be permanently deleted.",
+      "confirmDeleteAccount": "To confirm deletion, please enter your User ID exactly as shown below:",
+      "confirmUUID": "Confirm User ID",
+      "uuidMismatch": "User ID does not match. Please try again.",
+      "accountDeleted": "Your account has been successfully deleted.",
+      "accountDeletionError": "Failed to delete your account. Please try again."
     }
   },
   zh: {
@@ -134,7 +142,15 @@ const resources = {
       "passwordUpdateSuccess": "您的密码已更新成功",
       "passwordUpdateError": "更新密码失败，请重试",
       "passwordMismatch": "两次输入的密码不匹配",
-      "reAuthenticationRequired": "重试前请重新登录"
+      "reAuthenticationRequired": "重试前请重新登录",
+      "deleteAccount": "删除账户",
+      "warning": "警告",
+      "deleteAccountWarning": "此操作无法撤销。您的所有数据将被永久删除。",
+      "confirmDeleteAccount": "要确认删除，请输入您的用户ID，需要与下方显示的完全一致：",
+      "confirmUUID": "确认用户ID",
+      "uuidMismatch": "用户ID不匹配，请重试。",
+      "accountDeleted": "您的账户已成功删除。",
+      "accountDeletionError": "删除账户失败，请重试。"
     }
   }
 };
