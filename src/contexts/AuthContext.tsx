@@ -17,7 +17,7 @@ interface AuthContextType {
   auth: Auth; // Added auth property
 }
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null); // Exporting AuthContext
 
 export function useAuth() {
   const context = useContext(AuthContext);
