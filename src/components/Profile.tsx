@@ -235,9 +235,9 @@ export default function Profile() {
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
                 <span>••••••</span>
                 <Link 
-                  to="/reset-password" 
+                  to="/change-password" 
                   className="text-gray-400 hover:text-gray-500"
-                  title={t('editPassword')}
+                  title={t('changePassword')}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

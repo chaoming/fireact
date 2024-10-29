@@ -61,7 +61,13 @@ const resources = {
       "emailVerificationSent": "Verification email sent. Please check your inbox.",
       "emailVerificationError": "Failed to send verification email. Please try again.",
       "emailVerificationResent": "A new verification email has been sent to your inbox.",
-      "emailVerificationTooManyRequests": "Too many verification email requests. Please wait a while before trying again."
+      "emailVerificationTooManyRequests": "Too many verification email requests. Please wait a while before trying again.",
+      "changePassword": "Change Password",
+      "newPassword": "New Password",
+      "passwordUpdateSuccess": "Your password has been updated successfully",
+      "passwordUpdateError": "Failed to update your password. Please try again",
+      "passwordMismatch": "Passwords do not match",
+      "reAuthenticationRequired": "Please sign in again before changing your password"
     }
   },
   zh: {
@@ -122,7 +128,13 @@ const resources = {
       "emailVerificationSent": "验证邮件已发送，请检查您的收件箱。",
       "emailVerificationError": "发送验证邮件失败，请重试。",
       "emailVerificationResent": "新的验证邮件已发送到您的收件箱。",
-      "emailVerificationTooManyRequests": "验证邮件请求过于频繁，请稍后再试。"
+      "emailVerificationTooManyRequests": "验证邮件请求过于频繁，请稍后再试。",
+      "changePassword": "修改密码",
+      "newPassword": "新密码",
+      "passwordUpdateSuccess": "您的密码已更新成功",
+      "passwordUpdateError": "更新密码失败，请重试",
+      "passwordMismatch": "两次输入的密码不匹配",
+      "reAuthenticationRequired": "修改密码前请重新登录"
     }
   }
 };

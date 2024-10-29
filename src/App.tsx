@@ -8,6 +8,7 @@ import Profile from './components/Profile';
 import EditName from './components/EditName';
 import EditEmail from './components/EditEmail';
 import ResetPassword from './components/ResetPassword';
+import ChangePassword from './components/ChangePassword';
 import PrivateRoute from './components/PrivateRoute';
 import AuthenticatedLayout from './layouts/AuthenticatedLayout';
 import PublicLayout from './layouts/PublicLayout';
@@ -49,6 +50,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <EditEmail />
+                  </PrivateRoute>
+                } 
+              />
+              <Route 
+                path="/change-password" 
+                element={
+                  <PrivateRoute>
+                    <ChangePassword />
                   </PrivateRoute>
                 } 
               />
