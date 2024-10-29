@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { useConfig } from '../contexts/ConfigContext';
 
 export interface UserData {
   display_name: string;
@@ -16,6 +16,7 @@ export default function Dashboard() {
   const { t } = useTranslation();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
+  const { db } = useConfig();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -35,7 +36,7 @@ export default function Dashboard() {
     }
 
     fetchUserData();
-  }, [currentUser]);
+  }, [currentUser, db]);
 
   if (loading) {
     return (

@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { useLoading } from '../contexts/LoadingContext';
-import { db } from '../firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { User, updateProfile } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Message from './Message';
+import { useConfig } from '../contexts/ConfigContext';
 
 const EditName: React.FC = () => {
   const { t } = useTranslation();
@@ -18,6 +18,7 @@ const EditName: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setLoading: setGlobalLoading } = useLoading();
   const navigate = useNavigate();
+  const { db } = useConfig();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -37,7 +38,7 @@ const EditName: React.FC = () => {
     }
 
     fetchUserData();
-  }, [currentUser, t]);
+  }, [currentUser, t, db]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

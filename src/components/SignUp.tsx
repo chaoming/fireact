@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { saveUserToFirestore } from '../utils/userUtils'; // Import the utility function
-import { useLoading } from '../contexts/LoadingContext'; // Import loading context
+import { saveUserToFirestore } from '../utils/userUtils';
+import { useLoading } from '../contexts/LoadingContext';
+import { useConfig } from '../contexts/ConfigContext';
 
 export default function SignUp() {
   const [fullName, setFullName] = useState('');
@@ -13,21 +14,23 @@ export default function SignUp() {
   const { signup } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { setLoading } = useLoading(); // Access loading context
+  const { setLoading } = useLoading();
+  const { db } = useConfig();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       setError('');
-      const userCredential = await signup(email, password); // Call with only email and password
-      // Save user to Firestore using the new utility function
-      await saveUserToFirestore(userCredential.user, fullName);
+      const userCredential = await signup(email, password);
+      // Pass db instance to saveUserToFirestore
+      await saveUserToFirestore(userCredential.user, fullName, db);
       navigate('/dashboard');
     } catch (err) {
+      console.error('Signup error:', err);
       setError(t('failedSignUp'));
     } finally {
-      setLoading(false); // Set loading to false after the process
+      setLoading(false);
     }
   }
 

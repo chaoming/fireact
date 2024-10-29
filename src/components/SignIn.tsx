@@ -2,24 +2,24 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { auth } from '../firebase'; // Importing auth from firebase.ts
-import { GoogleAuthProvider, signInWithPopup, OAuthProvider, FacebookAuthProvider, GithubAuthProvider, TwitterAuthProvider } from 'firebase/auth'; // Importing necessary methods
-import config from '../config.json';
-import { saveUserToFirestore } from '../utils/userUtils'; // Import the utility function
-import { useLoading } from '../contexts/LoadingContext'; // Import loading context
+import { GoogleAuthProvider, signInWithPopup, OAuthProvider, FacebookAuthProvider, GithubAuthProvider, TwitterAuthProvider } from 'firebase/auth';
+import { saveUserToFirestore } from '../utils/userUtils';
+import { useLoading } from '../contexts/LoadingContext';
+import { useConfig } from '../contexts/ConfigContext';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { setLoading } = useLoading(); // Access loading context
+  const { setLoading } = useLoading();
   const { signin } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { socialLogin, auth, db } = useConfig();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       setError('');
       await signin(email, password);
@@ -27,112 +27,112 @@ export default function SignIn() {
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
-      setLoading(false); // Set loading to false after the process
+      setLoading(false);
     }
   }
 
   async function handleGoogleSignIn() {
     const provider = new GoogleAuthProvider();
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
+      await saveUserToFirestore(user, user.displayName || "", db);
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
-      setLoading(false); // Set loading to false after the process
+      setLoading(false);
     }
   }
 
   async function handleMicrosoftSignIn() {
     const provider = new OAuthProvider('microsoft.com');
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
+      await saveUserToFirestore(user, user.displayName || "", db);
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
-      setLoading(false); // Set loading to false after the process
+      setLoading(false);
     }
   }
 
   async function handleFacebookSignIn() {
     const provider = new FacebookAuthProvider();
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
+      await saveUserToFirestore(user, user.displayName || "", db);
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
-      setLoading(false); // Set loading to false after the process
+      setLoading(false);
     }
   }
 
   async function handleAppleSignIn() {
     const provider = new OAuthProvider('apple.com');
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
+      await saveUserToFirestore(user, user.displayName || "", db);
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
-      setLoading(false); // Set loading to false after the process
+      setLoading(false);
     }
   }
 
   async function handleGitHubSignIn() {
     const provider = new GithubAuthProvider();
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
+      await saveUserToFirestore(user, user.displayName || "", db);
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
-      setLoading(false); // Set loading to false after the process
+      setLoading(false);
     }
   }
 
   async function handleTwitterSignIn() {
     const provider = new TwitterAuthProvider();
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
+      await saveUserToFirestore(user, user.displayName || "", db);
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
-      setLoading(false); // Set loading to false after the process
+      setLoading(false);
     }
   }
 
   async function handleYahooSignIn() {
     const provider = new OAuthProvider('yahoo.com');
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      await saveUserToFirestore(user, user.displayName || ""); // Provide default value if null
+      await saveUserToFirestore(user, user.displayName || "", db);
       navigate('/dashboard');
     } catch (err) {
       setError(t('failedSignIn'));
     } finally {
-      setLoading(false); // Set loading to false after the process
+      setLoading(false);
     }
   }
 
@@ -199,8 +199,8 @@ export default function SignIn() {
           {t('forgotPassword')}
         </Link>
       </div>
-      <div className="mt-4 space-y-2"> {/* Added space-y-2 for spacing between buttons */}
-        {config.socialLogin.google && (
+      <div className="mt-4 space-y-2">
+        {socialLogin.google && (
           <button
             onClick={handleGoogleSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
@@ -208,7 +208,7 @@ export default function SignIn() {
             {t('signInWithGoogle')}
           </button>
         )}
-        {config.socialLogin.microsoft && (
+        {socialLogin.microsoft && (
           <button
             onClick={handleMicrosoftSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -216,7 +216,7 @@ export default function SignIn() {
             {t('signInWithMicrosoft')}
           </button>
         )}
-        {config.socialLogin.facebook && (
+        {socialLogin.facebook && (
           <button
             onClick={handleFacebookSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
@@ -224,7 +224,7 @@ export default function SignIn() {
             {t('signInWithFacebook')}
           </button>
         )}
-        {config.socialLogin.apple && (
+        {socialLogin.apple && (
           <button
             onClick={handleAppleSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600"
@@ -232,7 +232,7 @@ export default function SignIn() {
             {t('signInWithApple')}
           </button>
         )}
-        {config.socialLogin.github && (
+        {socialLogin.github && (
           <button
             onClick={handleGitHubSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
@@ -240,7 +240,7 @@ export default function SignIn() {
             {t('signInWithGitHub')}
           </button>
         )}
-        {config.socialLogin.twitter && (
+        {socialLogin.twitter && (
           <button
             onClick={handleTwitterSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
@@ -248,7 +248,7 @@ export default function SignIn() {
             {t('signInWithTwitter')}
           </button>
         )}
-        {config.socialLogin.yahoo && (
+        {socialLogin.yahoo && (
           <button
             onClick={handleYahooSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"

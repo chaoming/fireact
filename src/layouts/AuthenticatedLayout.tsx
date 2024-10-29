@@ -7,9 +7,9 @@ import Logo from '../components/Logo';
 import Avatar from '../components/Avatar';
 import { Outlet } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
 import { UserData } from '../components/Dashboard';
 import PrivateRoute from '../components/PrivateRoute';
+import { useConfig } from '../contexts/ConfigContext';
 
 export default function AuthenticatedLayout() {
   const { signout, currentUser } = useAuth();
@@ -20,6 +20,7 @@ export default function AuthenticatedLayout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
+  const { db } = useConfig();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -37,7 +38,7 @@ export default function AuthenticatedLayout() {
     }
 
     fetchUserData();
-  }, [currentUser]);
+  }, [currentUser, db]);
 
   async function handleSignOut() {
     try {

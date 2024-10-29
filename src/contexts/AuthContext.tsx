@@ -7,17 +7,17 @@ import {
   User,
   Auth
 } from 'firebase/auth';
-import { auth } from '../firebase';
+import { useConfig } from './ConfigContext';
 
 interface AuthContextType {
   currentUser: User | null;
-  signup: (email: string, password: string) => Promise<any>; // Removed displayName
+  signup: (email: string, password: string) => Promise<any>;
   signin: (email: string, password: string) => Promise<any>;
   signout: () => Promise<void>;
-  auth: Auth; // Added auth property
+  auth: Auth;
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null); // Exporting AuthContext
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export function useAuth() {
   const context = useContext(AuthContext);
@@ -30,10 +30,11 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const { auth } = useConfig();
 
   async function signup(email: string, password: string) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    return userCredential; // Return userCredential for further processing
+    return userCredential;
   }
 
   function signin(email: string, password: string) {
@@ -51,14 +52,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     return unsubscribe;
-  }, []);
+  }, [auth]);
 
   const value = {
     currentUser,
     signup,
     signin,
     signout,
-    auth // Exporting auth instance
+    auth
   };
 
   return (

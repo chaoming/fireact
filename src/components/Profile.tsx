@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
 import { sendEmailVerification } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import Avatar from './Avatar';
 import { UserData } from './Dashboard';
 import { Link } from 'react-router-dom';
 import Message from './Message';
+import { useConfig } from '../contexts/ConfigContext';
 
 export default function Profile() {
   const { currentUser } = useAuth();
@@ -17,6 +17,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
+  const { db } = useConfig();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -35,7 +36,7 @@ export default function Profile() {
     }
 
     fetchUserData();
-  }, [currentUser]);
+  }, [currentUser, db]);
 
   const handleVerifyEmail = async () => {
     if (currentUser) {
