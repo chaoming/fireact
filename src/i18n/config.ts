@@ -46,10 +46,14 @@ const resources = {
       "avatar": "Avatar",
       "myProfile": "My Profile",
       "editName": "Edit Name",
+      "editEmail": "Edit Email",
       "save": "Save",
       "cancel": "Cancel",
       "nameUpdateSuccess": "Your name has been updated successfully",
-      "nameUpdateError": "Failed to update your name. Please try again"
+      "nameUpdateError": "Failed to update your name. Please try again",
+      "emailUpdateSuccess": "Your email has been updated successfully",
+      "emailUpdateError": "Failed to update your email. Please try again",
+      "emailVerificationRequired": "Please verify your current email address before changing to a new one. Check your email inbox for a verification link."
     }
   },
   zh: {
@@ -95,10 +99,14 @@ const resources = {
       "avatar": "头像",
       "myProfile": "我的资料",
       "editName": "编辑姓名",
+      "editEmail": "编辑邮箱",
       "save": "保存",
       "cancel": "取消",
       "nameUpdateSuccess": "您的姓名已更新成功",
-      "nameUpdateError": "更新姓名失败，请重试"
+      "nameUpdateError": "更新姓名失败，请重试",
+      "emailUpdateSuccess": "您的邮箱已更新成功",
+      "emailUpdateError": "更新邮箱失败，请重试",
+      "emailVerificationRequired": "更改邮箱前请先验证当前邮箱地址。请检查您的邮箱收件箱查看验证链接。"
     }
   }
 };
