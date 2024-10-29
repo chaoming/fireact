@@ -15,6 +15,7 @@ const EditName: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { setLoading: setGlobalLoading } = useLoading();
   const navigate = useNavigate();
 
@@ -41,6 +42,7 @@ const EditName: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (currentUser) {
+      setIsSubmitting(true);
       setGlobalLoading(true);
       setMessage(null);
       try {
@@ -55,6 +57,7 @@ const EditName: React.FC = () => {
       } catch (error) {
         console.error('Error updating name:', error);
         setMessage({ type: 'error', text: t('nameUpdateError') });
+        setIsSubmitting(false);
       } finally {
         setGlobalLoading(false);
       }
@@ -97,7 +100,7 @@ const EditName: React.FC = () => {
                   onChange={(e) => setFullName(e.target.value)}
                   className="block w-full px-4 py-3 text-gray-900 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-base disabled:bg-gray-100 disabled:cursor-not-allowed"
                   required
-                  disabled={loading}
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -106,16 +109,26 @@ const EditName: React.FC = () => {
                 type="button"
                 onClick={() => navigate('/profile')}
                 className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
-                disabled={loading}
+                disabled={isSubmitting}
               >
                 {t('cancel')}
               </button>
               <button
                 type="submit"
-                className="bg-indigo-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400 disabled:cursor-not-allowed"
-                disabled={loading}
+                className="bg-indigo-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400 disabled:cursor-not-allowed inline-flex items-center"
+                disabled={isSubmitting}
               >
-                {t('save')}
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    {t('save')}
+                  </>
+                ) : (
+                  t('save')
+                )}
               </button>
             </div>
           </form>
