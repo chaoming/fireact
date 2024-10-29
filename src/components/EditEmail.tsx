@@ -37,6 +37,8 @@ const EditEmail: React.FC = () => {
         if (error instanceof FirebaseError) {
           if (error.code === 'auth/operation-not-allowed') {
             setMessage({ type: 'error', text: t('emailVerificationRequired') });
+          } else if (error.code === 'auth/requires-recent-login') {
+            setMessage({ type: 'error', text: t('reAuthenticationRequired') });
           } else {
             setMessage({ type: 'error', text: t('emailUpdateError') });
           }

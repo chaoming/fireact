@@ -67,7 +67,7 @@ const resources = {
       "passwordUpdateSuccess": "Your password has been updated successfully",
       "passwordUpdateError": "Failed to update your password. Please try again",
       "passwordMismatch": "Passwords do not match",
-      "reAuthenticationRequired": "Please sign in again before changing your password"
+      "reAuthenticationRequired": "Please sign in again before retry"
     }
   },
   zh: {
@@ -134,7 +134,7 @@ const resources = {
       "passwordUpdateSuccess": "您的密码已更新成功",
       "passwordUpdateError": "更新密码失败，请重试",
       "passwordMismatch": "两次输入的密码不匹配",
-      "reAuthenticationRequired": "修改密码前请重新登录"
+      "reAuthenticationRequired": "重试前请重新登录"
     }
   }
 };
