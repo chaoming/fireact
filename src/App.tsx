@@ -5,7 +5,8 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
-import EditName from './components/EditName'; // Importing EditName component
+import EditName from './components/EditName';
+import EditEmail from './components/EditEmail';
 import ResetPassword from './components/ResetPassword';
 import PrivateRoute from './components/PrivateRoute';
 import AuthenticatedLayout from './layouts/AuthenticatedLayout';
@@ -42,7 +43,15 @@ function App() {
                     <EditName />
                   </PrivateRoute>
                 } 
-              /> {/* New route for EditName */}
+              />
+              <Route 
+                path="/edit-email" 
+                element={
+                  <PrivateRoute>
+                    <EditEmail />
+                  </PrivateRoute>
+                } 
+              />
             </Route>
             <Route element={<PublicLayout />}>
               <Route path="/signin" element={<SignIn />} />
