@@ -10,7 +10,6 @@ import EditEmail from './components/EditEmail';
 import ResetPassword from './components/ResetPassword';
 import ChangePassword from './components/ChangePassword';
 import DeleteAccount from './components/DeleteAccount';
-import PrivateRoute from './components/PrivateRoute';
 import AuthenticatedLayout from './layouts/AuthenticatedLayout';
 import PublicLayout from './layouts/PublicLayout';
 
@@ -22,54 +21,12 @@ function App() {
           <Routes>
             <Route element={<AuthenticatedLayout />}>
               <Route path="/" element={<Navigate to="/dashboard" />} />
-              <Route 
-                path="/dashboard" 
-                element={
-                  <PrivateRoute>
-                    <Dashboard />
-                  </PrivateRoute>
-                } 
-              />
-              <Route 
-                path="/profile" 
-                element={
-                  <PrivateRoute>
-                    <Profile />
-                  </PrivateRoute>
-                } 
-              />
-              <Route 
-                path="/edit-name" 
-                element={
-                  <PrivateRoute>
-                    <EditName />
-                  </PrivateRoute>
-                } 
-              />
-              <Route 
-                path="/edit-email" 
-                element={
-                  <PrivateRoute>
-                    <EditEmail />
-                  </PrivateRoute>
-                } 
-              />
-              <Route 
-                path="/change-password" 
-                element={
-                  <PrivateRoute>
-                    <ChangePassword />
-                  </PrivateRoute>
-                } 
-              />
-              <Route 
-                path="/delete-account" 
-                element={
-                  <PrivateRoute>
-                    <DeleteAccount />
-                  </PrivateRoute>
-                } 
-              />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/edit-name" element={<EditName />} />
+              <Route path="/edit-email" element={<EditEmail />} />
+              <Route path="/change-password" element={<ChangePassword />} />
+              <Route path="/delete-account" element={<DeleteAccount />} />
             </Route>
             <Route element={<PublicLayout />}>
               <Route path="/signin" element={<SignIn />} />

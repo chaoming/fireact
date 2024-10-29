@@ -9,6 +9,7 @@ import { Outlet } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { UserData } from '../components/Dashboard';
+import PrivateRoute from '../components/PrivateRoute';
 
 export default function AuthenticatedLayout() {
   const { signout, currentUser } = useAuth();
@@ -223,7 +224,9 @@ export default function AuthenticatedLayout() {
         {/* Main Content */}
         <div className="flex-1 min-vh100 transition-all duration-300 ease-in-out">
           <main className="py-6 px-4 sm:px-6 lg:px-8">
-            <Outlet />
+            <PrivateRoute>
+              <Outlet />
+            </PrivateRoute>
           </main>
         </div>
       </div>
