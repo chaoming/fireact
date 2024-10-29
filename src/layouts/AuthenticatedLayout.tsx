@@ -149,10 +149,6 @@ export default function AuthenticatedLayout() {
             
             {/* Menu Items */}
             <div className="pt-2 pb-3">
-              <div className="flex items-center px-3 py-2 space-x-3">
-                <Avatar userData={userData} />
-                <span className="text-gray-400 text-sm">{userData?.display_name}</span>
-              </div>
               <Link
                 to="/dashboard"
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
