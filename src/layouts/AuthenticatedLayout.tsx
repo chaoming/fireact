@@ -180,13 +180,13 @@ export default function AuthenticatedLayout() {
         </div>
       </nav>
 
-      <div className="flex">
+      <div className="flex min-h-[calc(100vh-64px)]">
         {/* Sidebar - hidden on mobile, visible on desktop */}
         <div
           className={`${
             isSidebarOpen ? 'w-64' : 'w-20'
           } transition-all duration-300 ease-in-out transform hidden lg:block
-          fixed lg:relative lg:translate-x-0 z-30 bg-white shadow h-screen`}
+          fixed lg:relative lg:translate-x-0 z-30 bg-white shadow min-vh100`}
         >
           <nav className="mt-5 px-2">
             <Link
@@ -221,7 +221,7 @@ export default function AuthenticatedLayout() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 min-h-screen transition-all duration-300 ease-in-out">
+        <div className="flex-1 min-vh100 transition-all duration-300 ease-in-out">
           <main className="py-6 px-4 sm:px-6 lg:px-8">
             <Outlet />
           </main>
