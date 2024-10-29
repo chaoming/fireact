@@ -1,18 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import Logo from '../components/Logo';
+import Avatar from '../components/Avatar';
 import { Outlet } from 'react-router-dom';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+import { UserData } from '../components/Dashboard';
 
 export default function AuthenticatedLayout() {
-  const { signout } = useAuth();
+  const { signout, currentUser } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    async function fetchUserData() {
+      if (currentUser) {
+        try {
+          const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+          if (userDoc.exists()) {
+            const data = userDoc.data() as UserData;
+            setUserData(data);
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    }
+
+    fetchUserData();
+  }, [currentUser]);
 
   async function handleSignOut() {
     try {
@@ -81,18 +105,45 @@ export default function AuthenticatedLayout() {
             {/* Desktop nav items */}
             <div className="hidden lg:flex lg:items-center lg:space-x-4 pr-4">
               <LanguageSwitcher />
-              <button
-                onClick={handleSignOut}
-                className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-              >
-                {t('signout')}
-              </button>
+              <div className="relative">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center space-x-3 focus:outline-none"
+                >
+                  <Avatar userData={userData} />
+                  <span className="text-gray-400 text-sm">{userData?.display_name}</span>
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div className="py-1" role="menu" aria-orientation="vertical">
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        {t('myProfile')}
+                      </Link>
+                      <button
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          handleSignOut();
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        role="menuitem"
+                      >
+                        {t('signout')}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
           {/* Mobile menu */}
           <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-gray-900`}>
-            <div className="pt-2 pb-3 space-y-4"> {/* Changed space-y-1 to space-y-4 */}
+            <div className="pt-2 pb-3 space-y-4">
               <Link
                 to="/dashboard"
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
@@ -102,6 +153,16 @@ export default function AuthenticatedLayout() {
                 }`}
               >
                 {t('dashboard')}
+              </Link>
+              <Link
+                to="/profile"
+                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  location.pathname === '/profile'
+                    ? 'bg-indigo-100 text-indigo-600'
+                    : 'text-gray-200 hover:bg-gray-700'
+                }`}
+              >
+                {t('myProfile')}
               </Link>
               <div className="flex items-center justify-center mb-4">
                 <LanguageSwitcher />

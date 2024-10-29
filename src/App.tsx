@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import { LoadingProvider } from './contexts/LoadingContext'; // Import LoadingProvider
+import { LoadingProvider } from './contexts/LoadingContext';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Dashboard from './components/Dashboard';
+import Profile from './components/Profile';
 import ResetPassword from './components/ResetPassword';
 import PrivateRoute from './components/PrivateRoute';
 import AuthenticatedLayout from './layouts/AuthenticatedLayout';
@@ -13,7 +14,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <LoadingProvider> {/* Wrap the application in LoadingProvider */}
+        <LoadingProvider>
           <Routes>
             <Route element={<AuthenticatedLayout />}>
               <Route path="/" element={<Navigate to="/dashboard" />} />
@@ -22,6 +23,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Dashboard />
+                  </PrivateRoute>
+                } 
+              />
+              <Route 
+                path="/profile" 
+                element={
+                  <PrivateRoute>
+                    <Profile />
                   </PrivateRoute>
                 } 
               />

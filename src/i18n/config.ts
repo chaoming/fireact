@@ -38,12 +38,13 @@ const resources = {
       "signInWithTwitter": "Sign in with Twitter",
       "signInWithYahoo": "Sign in with Yahoo",
       "forgotPassword": "Forgot Password?",
-      "resetPassword": "Reset Password", // New translation key
-      "sendResetEmail": "Send Reset Email", // New translation key
-      "backToSignIn": "Back to Sign In", // New translation key
-      "passwordResetEmailSent": "Password reset email sent! Check your inbox.", // New translation key
-      "failedToSendResetEmail": "Failed to send reset email. Please try again.", // New translation key
-      "avatar": "Avatar" // New translation key
+      "resetPassword": "Reset Password",
+      "sendResetEmail": "Send Reset Email",
+      "backToSignIn": "Back to Sign In",
+      "passwordResetEmailSent": "Password reset email sent! Check your inbox.",
+      "failedToSendResetEmail": "Failed to send reset email. Please try again.",
+      "avatar": "Avatar",
+      "myProfile": "My Profile"
     }
   },
   zh: {
@@ -81,12 +82,13 @@ const resources = {
       "signInWithTwitter": "使用 Twitter 登录",
       "signInWithYahoo": "使用 Yahoo 登录",
       "forgotPassword": "忘记密码？",
-      "resetPassword": "重置密码", // New translation key
-      "sendResetEmail": "发送重置邮件", // New translation key
-      "backToSignIn": "返回登录", // New translation key
-      "passwordResetEmailSent": "密码重置邮件已发送！请检查您的收件箱。", // New translation key
-      "failedToSendResetEmail": "发送重置邮件失败。请再试一次。", // New translation key
-      "avatar": "头像" // New translation key
+      "resetPassword": "重置密码",
+      "sendResetEmail": "发送重置邮件",
+      "backToSignIn": "返回登录",
+      "passwordResetEmailSent": "密码重置邮件已发送！请检查您的收件箱。",
+      "failedToSendResetEmail": "发送重置邮件失败。请再试一次。",
+      "avatar": "头像",
+      "myProfile": "我的资料"
     }
   }
 };
