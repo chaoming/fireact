@@ -26,7 +26,7 @@ function App() {
             <Routes>
               <Route element={
                 <AuthenticatedLayout 
-                  desktopMenuItems={<DesktopMenuItems isSidebarOpen={true} />}
+                  desktopMenuItems={<DesktopMenuItems />}
                   mobileMenuItems={<MobileMenuItems />}
                 />
               }>
