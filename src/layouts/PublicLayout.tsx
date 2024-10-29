@@ -1,9 +1,13 @@
+import { ReactNode } from 'react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-import Logo from '../components/Logo';
 import { Outlet } from 'react-router-dom';
 import { useLoading } from '../contexts/LoadingContext';
 
-export default function PublicLayout() {
+interface Props {
+  logo: ReactNode;
+}
+
+export default function PublicLayout({ logo }: Props) {
   const { loading } = useLoading(); // Access loading context
 
   return (
@@ -15,7 +19,7 @@ export default function PublicLayout() {
       )}
       <div className="max-w-md w-full space-y-8">
         <div className="flex flex-col items-center">
-          <Logo className="w-20 h-20" />
+          {logo}
           <div className="absolute top-4 right-4">
             <LanguageSwitcher />
           </div>

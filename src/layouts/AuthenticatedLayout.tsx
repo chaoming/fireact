@@ -3,7 +3,6 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-import Logo from '../components/Logo';
 import Avatar from '../components/Avatar';
 import { Outlet } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
@@ -14,9 +13,10 @@ import { useConfig } from '../contexts/ConfigContext';
 interface Props {
   desktopMenuItems: ReactNode;
   mobileMenuItems: ReactNode;
+  logo: ReactNode;
 }
 
-export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems }: Props) {
+export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems, logo }: Props) {
   const { signout, currentUser } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -63,7 +63,7 @@ export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems 
             <div className="flex px-2 lg:px-0">
               <div className="flex items-center">
                 <div className="flex items-center flex-shrink-0">
-                  <Logo className="w-10 h-10" />
+                  {logo}
                   <span className="ml-2 text-xl font-bold text-white">Fireact</span>
                 </div>
                 <button

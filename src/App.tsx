@@ -15,6 +15,7 @@ import AuthenticatedLayout from './layouts/AuthenticatedLayout';
 import PublicLayout from './layouts/PublicLayout';
 import DesktopMenuItems from './components/DesktopMenuItems';
 import MobileMenuItems from './components/MobileMenuItems';
+import Logo from './components/Logo';
 import config from './config.json';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                 <AuthenticatedLayout 
                   desktopMenuItems={<DesktopMenuItems />}
                   mobileMenuItems={<MobileMenuItems />}
+                  logo={<Logo className="w-10 h-10" />}
                 />
               }>
                 <Route path={config.pages.home} element={<Navigate to={config.pages.dashboard} />} />
@@ -38,7 +40,7 @@ function App() {
                 <Route path={config.pages.changePassword} element={<ChangePassword />} />
                 <Route path={config.pages.deleteAccount} element={<DeleteAccount />} />
               </Route>
-              <Route element={<PublicLayout />}>
+              <Route element={<PublicLayout logo={<Logo className="w-20 h-20" />} />}>
                 <Route path={config.pages.signIn} element={<SignIn />} />
                 <Route path={config.pages.signUp} element={<SignUp />} />
                 <Route path={config.pages.resetPassword} element={<ResetPassword />} />

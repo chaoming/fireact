@@ -10,6 +10,7 @@ Fireact is a React web application built with TypeScript, TailwindCSS, and Fireb
 - [Build Process](#build-process)
 - [Running the Application](#running-the-application)
 - [Deploying to Firebase](#deploying-to-firebase)
+- [Customizing the Logo](#customizing-the-logo)
 
 ## Prerequisites
 - Node.js (v14 or later)
@@ -106,6 +107,41 @@ You can modify these paths according to your needs. The application will automat
 - Change page URLs without modifying multiple components
 - Maintain consistency in navigation throughout the application
 - Add new pages by simply adding them to the config
+
+### Customizing the Logo
+The application's logo is centrally managed in the `App.tsx` file, making it easy to replace or modify. The Logo component is passed as a prop to both the authenticated and public layouts, which means you only need to update it in one place to change it throughout the application.
+
+To replace the logo:
+
+1. Create your custom logo component in `src/components/Logo.tsx`, or modify the existing one. The component should accept a className prop for styling:
+   ```tsx
+   interface LogoProps {
+     className?: string;
+   }
+
+   export default function Logo({ className }: LogoProps) {
+     return (
+       // Your custom logo implementation
+     );
+   }
+   ```
+
+2. The logo is rendered in two different sizes:
+   - In the authenticated layout (top navbar): 40x40 pixels (w-10 h-10)
+   - In the public layout (sign-in/sign-up pages): 80x80 pixels (w-20 h-20)
+
+3. These sizes are configured in `App.tsx`:
+   ```tsx
+   <AuthenticatedLayout 
+     desktopMenuItems={<DesktopMenuItems />}
+     mobileMenuItems={<MobileMenuItems />}
+     logo={<Logo className="w-10 h-10" />}
+   />
+
+   <PublicLayout logo={<Logo className="w-20 h-20" />} />
+   ```
+
+You can adjust these sizes by modifying the className props in `App.tsx`. The sizing follows TailwindCSS conventions.
 
 ## Firebase Setup
 1. Initialize Firebase in your project:
