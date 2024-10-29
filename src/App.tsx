@@ -13,6 +13,8 @@ import ChangePassword from './components/ChangePassword';
 import DeleteAccount from './components/DeleteAccount';
 import AuthenticatedLayout from './layouts/AuthenticatedLayout';
 import PublicLayout from './layouts/PublicLayout';
+import DesktopMenuItems from './components/DesktopMenuItems';
+import MobileMenuItems from './components/MobileMenuItems';
 import config from './config.json';
 
 function App() {
@@ -22,7 +24,12 @@ function App() {
         <AuthProvider>
           <LoadingProvider>
             <Routes>
-              <Route element={<AuthenticatedLayout />}>
+              <Route element={
+                <AuthenticatedLayout 
+                  desktopMenuItems={<DesktopMenuItems isSidebarOpen={true} />}
+                  mobileMenuItems={<MobileMenuItems />}
+                />
+              }>
                 <Route path="/" element={<Navigate to="/dashboard" />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
