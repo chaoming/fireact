@@ -26,3 +26,4 @@ src/config.json
 .firebase/hosting.*
 .firebaserc
 demo/src/config.json
+demo/.firebase/hosting.ZGlzdA.cache

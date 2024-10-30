@@ -219,6 +219,46 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 );
 ```
 
+## Firebase Initialization and Deployment
+
+### Initialize Firebase Project
+
+1. Install Firebase CLI globally:
+```bash
+npm install -g firebase-tools
+```
+
+2. Login to Firebase:
+```bash
+firebase login
+```
+
+3. Initialize Firebase in your project directory:
+```bash
+firebase init
+```
+
+During the initialization process:
+- Select "Hosting" when prompted for features
+- Choose your Firebase project or create a new one
+- Specify your build directory (usually 'dist' for Vite projects)
+- Configure as a single-page application: Yes
+- Don't overwrite your index.html if asked
+
+### Build and Deploy
+
+1. Build your project:
+```bash
+npm run build
+```
+
+2. Deploy to Firebase Hosting:
+```bash
+firebase deploy
+```
+
+Your app will be deployed and accessible at `https://your-project-id.web.app` and `https://your-project-id.firebaseapp.com`
+
 ## Available Components
 
 - Avatar - User avatar display
