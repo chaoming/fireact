@@ -2,34 +2,48 @@
 
 Core components and utilities for Fireact applications.
 
+## Table of Contents
+- [Installation](#installation)
+- [Project Setup](#project-setup)
+  - [Tailwind CSS Configuration](#tailwind-css-configuration)
+  - [Firebase Configuration](#firebase-configuration)
+  - [Social Login Configuration](#social-login-configuration)
+  - [Internationalization Setup](#internationalization-setup)
+  - [Application Setup](#application-setup)
+- [Firebase Deployment](#firebase-deployment)
+- [Components Reference](#components-reference)
+- [License](#license)
+
 ## Installation
 
 ```bash
 npm install @fireact/core
 ```
 
-## Setup
-
-1. Install the required peer dependencies:
+Install the required peer dependencies:
 
 ```bash
-npm install firebase react-router-dom i18next react-i18next @headlessui/react @heroicons/react tailwindcss i18next-browser-languagedetector
+npm install firebase react-router-dom i18next react-i18next @headlessui/react@^1.7.15 @heroicons/react tailwindcss i18next-browser-languagedetector
 ```
 
-2. Set up Tailwind CSS:
+Note: Make sure to use @headlessui/react version ^1.7.15 as it's a required peer dependency.
 
+## Project Setup
+
+### Tailwind CSS Configuration
+
+1. Initialize Tailwind:
 ```bash
 npx tailwindcss init
 ```
 
-Update your `tailwind.config.js`:
-
+2. Update your `tailwind.config.js`:
 ```javascript
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./node_modules/@fireact/core/dist/**/*.{js,mjs}" // Add this line
+    "./node_modules/@fireact/core/dist/**/*.{js,mjs}"
   ],
   theme: {
     extend: {},
@@ -38,15 +52,16 @@ module.exports = {
 }
 ```
 
-Add Tailwind directives to your CSS:
-
+3. Add Tailwind directives to your `src/index.css`:
 ```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 ```
 
-3. Create a config.json file in your src directory:
+### Firebase Configuration
+
+Create `src/config.json` with your Firebase configuration:
 
 ```json
 {
@@ -57,15 +72,6 @@ Add Tailwind directives to your CSS:
     "storageBucket": "your-storage-bucket",
     "messagingSenderId": "your-messaging-sender-id",
     "appId": "your-app-id"
-  },
-  "socialLogin": {
-    "google": true,
-    "microsoft": false,
-    "facebook": false,
-    "apple": false,
-    "github": false,
-    "twitter": false,
-    "yahoo": false
   },
   "pages": {
     "home": "/",
@@ -78,22 +84,119 @@ Add Tailwind directives to your CSS:
     "signIn": "/signin",
     "signUp": "/signup",
     "resetPassword": "/reset-password"
+  },
+  "socialLogin": {
+    "google": false,
+    "microsoft": false,
+    "facebook": false,
+    "apple": false,
+    "github": false,
+    "twitter": false,
+    "yahoo": false
   }
 }
 ```
 
+Note: The ConfigProvider will automatically initialize Firebase using this configuration.
+
 ### Social Login Configuration
 
-To enable or disable social login providers:
+To enable social login providers:
 
-1. Set the corresponding provider to `true` in the `socialLogin` section of your config.json
-2. Configure the provider in your Firebase Console:
-   - Go to Authentication > Sign-in method
-   - Enable the providers you want to use
-   - Configure the OAuth settings for each provider
-   - Add the authorized domains
+1. Set the desired providers to `true` in the `socialLogin` section of your config.json
+2. Configure each enabled provider in your Firebase Console:
+   - Navigate to Authentication > Sign-in method
+   - Enable the desired providers
+   - Configure OAuth settings
+   - Add authorized domains
 
-4. Create an App.tsx file in your project:
+### Internationalization Setup
+
+1. Create the i18n directory structure:
+```
+src/
+  i18n/
+    locales/
+      en.ts
+      zh.ts
+```
+
+2. Download the base language files from:
+https://github.com/chaoming/fireact/tree/main/src/i18n/locales
+
+3. Adding or modifying labels:
+Each language file (e.g., en.ts) follows this structure:
+```typescript
+export default {
+  email: "Email",
+  password: "Password",
+  // Add more labels as needed
+}
+```
+
+4. Adding a new language:
+   1. Create a new file in the locales directory (e.g., `fr.ts` for French)
+   2. Copy the structure from en.ts
+   3. Translate all labels to the new language
+   4. Add the language to i18n initialization in App.tsx:
+
+```typescript
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: {
+        translation: en
+      },
+      zh: {
+        translation: zh
+      },
+      fr: {
+        translation: fr  // Add your new language here
+      }
+    },
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false
+    }
+  });
+```
+
+5. Using translations in your components:
+```typescript
+import { useTranslation } from 'react-i18next';
+
+function YourComponent() {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <h1>{t('common.title')}</h1>
+      <p>{t('common.description')}</p>
+    </div>
+  );
+}
+```
+
+### Application Setup
+
+1. Create `src/main.tsx`:
+
+```tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+2. Create `src/App.tsx`:
 
 ```tsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -180,50 +283,9 @@ function App() {
 export default App;
 ```
 
-5. Set up i18n:
+## Firebase Deployment
 
-Create a directory structure in your project:
-```
-src/
-  i18n/
-    locales/
-      en.ts
-      zh.ts
-```
-
-Download the language files from:
-https://github.com/chaoming/fireact/tree/main/src/i18n/locales
-
-Note: The ConfigProvider will automatically initialize Firebase using the configuration from config.json. You don't need to initialize Firebase separately.
-
-6. Create index.css with Tailwind directives:
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-7. Create main.tsx:
-
-```tsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-```
-
-## Firebase Initialization and Deployment
-
-### Initialize Firebase Project
-
-1. Install Firebase CLI globally:
+1. Install Firebase CLI:
 ```bash
 npm install -g firebase-tools
 ```
@@ -233,64 +295,62 @@ npm install -g firebase-tools
 firebase login
 ```
 
-3. Initialize Firebase in your project directory:
+3. Initialize Firebase in your project:
 ```bash
 firebase init
 ```
 
-During the initialization process:
-- Select "Hosting" when prompted for features
-- Choose your Firebase project or create a new one
-- Specify your build directory (usually 'dist' for Vite projects)
+Select the following options:
+- Choose "Hosting" when prompted for features
+- Select your Firebase project or create a new one
+- Set build directory to 'dist' (for Vite projects)
 - Configure as a single-page application: Yes
-- Don't overwrite your index.html if asked
+- Don't overwrite index.html
 
-### Build and Deploy
-
-1. Build your project:
+4. Build and deploy:
 ```bash
 npm run build
-```
-
-2. Deploy to Firebase Hosting:
-```bash
 firebase deploy
 ```
 
-Your app will be deployed and accessible at `https://your-project-id.web.app` and `https://your-project-id.firebaseapp.com`
+Your app will be available at:
+- https://your-project-id.web.app
+- https://your-project-id.firebaseapp.com
 
-## Available Components
+## Components Reference
 
-- Avatar - User avatar display
-- ChangePassword - Password change form
-- Dashboard - User dashboard
-- DeleteAccount - Account deletion interface
-- DesktopMenuItems - Desktop navigation menu
-- EditEmail - Email editing form
-- EditName - Name editing form
-- LanguageSwitcher - Language selection component
-- Logo - Application logo
-- Message - Message display component
-- MobileMenuItems - Mobile navigation menu
-- PrivateRoute - Protected route component
-- Profile - User profile component
-- ResetPassword - Password reset form
+### Authentication Components
 - SignIn - Sign in form
 - SignUp - Sign up form
+- ResetPassword - Password reset form
+- PrivateRoute - Protected route component
 
-## Contexts
+### User Management Components
+- Profile - User profile component
+- EditName - Name editing form
+- EditEmail - Email editing form
+- ChangePassword - Password change form
+- DeleteAccount - Account deletion interface
+- Avatar - User avatar display
 
+### Navigation Components
+- DesktopMenuItems - Desktop navigation menu
+- MobileMenuItems - Mobile navigation menu
+- Logo - Application logo
+- LanguageSwitcher - Language selection component
+
+### Layout Components
+- AuthenticatedLayout - Layout for authenticated pages
+- PublicLayout - Layout for public pages
+- Message - Message display component
+- Dashboard - User dashboard
+
+### Context Providers
 - AuthContext - Firebase authentication context
 - ConfigProvider - Application configuration context
 - LoadingContext - Loading state management
 
-## Layouts
-
-- AuthenticatedLayout - Layout for authenticated pages
-- PublicLayout - Layout for public pages
-
-## Utils
-
+### Utilities
 - userUtils - User-related utility functions
 
 ## License

@@ -21,6 +21,9 @@
   ],
   "author": "",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",

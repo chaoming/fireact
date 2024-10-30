@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fireact/core": "file:../package",
-    "@headlessui/react": "^2.2.0",
+    "@fireact/core": "^1.0.0",
+    "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.1.5",
     "firebase": "^11.0.1",
     "i18next": "^23.16.4",
