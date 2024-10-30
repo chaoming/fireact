@@ -59,13 +59,13 @@ Add Tailwind directives to your CSS:
     "appId": "your-app-id"
   },
   "socialLogin": {
-    "google": true,    // Enable/disable Google sign-in
-    "microsoft": false, // Enable/disable Microsoft sign-in
-    "facebook": false,  // Enable/disable Facebook sign-in
-    "apple": false,    // Enable/disable Apple sign-in
-    "github": false,   // Enable/disable GitHub sign-in
-    "twitter": false,  // Enable/disable Twitter sign-in
-    "yahoo": false     // Enable/disable Yahoo sign-in
+    "google": true,
+    "microsoft": false,
+    "facebook": false,
+    "apple": false,
+    "github": false,
+    "twitter": false,
+    "yahoo": false
   },
   "pages": {
     "home": "/",
