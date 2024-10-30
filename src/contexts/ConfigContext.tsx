@@ -28,13 +28,22 @@ interface ConfigContextType {
 
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
 
-export function ConfigProvider({ config, children }: { config: Omit<ConfigContextType, 'auth' | 'db'>, children: ReactNode }) {
+interface ConfigProviderProps {
+  config: {
+    firebase: ConfigContextType['firebase'];
+    socialLogin: ConfigContextType['socialLogin'];
+    pages: ConfigContextType['pages'];
+  };
+  children: ReactNode;
+}
+
+export function ConfigProvider({ config, children }: ConfigProviderProps) {
   // Initialize Firebase
   const app = initializeApp(config.firebase);
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  const value = {
+  const value: ConfigContextType = {
     ...config,
     auth,
     db
