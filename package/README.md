@@ -13,7 +13,7 @@ npm install @fireact/core
 1. Install the required peer dependencies:
 
 ```bash
-npm install firebase react-router-dom i18next react-i18next @headlessui/react @heroicons/react tailwindcss
+npm install firebase react-router-dom i18next react-i18next @headlessui/react @heroicons/react tailwindcss i18next-browser-languagedetector
 ```
 
 2. Set up Tailwind CSS:
@@ -93,28 +93,10 @@ To enable or disable social login providers:
    - Configure the OAuth settings for each provider
    - Add the authorized domains
 
-For example, to enable Google and GitHub authentication:
-```json
-{
-  "socialLogin": {
-    "google": true,
-    "github": true,
-    "microsoft": false,
-    "facebook": false,
-    "apple": false,
-    "twitter": false,
-    "yahoo": false
-  }
-}
-```
-
-The SignIn component will automatically display the enabled social login buttons based on your configuration.
-
 4. Create an App.tsx file in your project:
 
 ```tsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { initializeApp } from 'firebase/app';
 import {
   AuthProvider,
   ConfigProvider,
@@ -147,17 +129,18 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      en: { translation: en },
-      zh: { translation: zh }
+      en: {
+        translation: en
+      },
+      zh: {
+        translation: zh
+      }
     },
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false
     }
   });
-
-// Initialize Firebase with your config
-const app = initializeApp(config.firebase);
 
 function App() {
   return (
@@ -211,7 +194,7 @@ src/
 Download the language files from:
 https://github.com/chaoming/fireact/tree/main/src/i18n/locales
 
-The i18n initialization is handled directly in the App.tsx file, where the language resources are imported and configured.
+Note: The ConfigProvider will automatically initialize Firebase using the configuration from config.json. You don't need to initialize Firebase separately.
 
 6. Create index.css with Tailwind directives:
 
