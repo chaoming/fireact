@@ -1,4 +1,4 @@
-# @fireact/core
+# @fireact.dev/core
 
 Core components and utilities for Fireact applications.
 
@@ -17,7 +17,7 @@ Core components and utilities for Fireact applications.
 ## Installation
 
 ```bash
-npm install @fireact/core
+npm install @fireact.dev/core
 ```
 
 Install the required peer dependencies:
@@ -43,7 +43,7 @@ npx tailwindcss init
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./node_modules/@fireact/core/dist/**/*.{js,mjs}"
+    "./node_modules/@fireact.dev/core/dist/**/*.{js,mjs}"
   ],
   theme: {
     extend: {},
@@ -218,7 +218,7 @@ import {
   DesktopMenuItems,
   MobileMenuItems,
   Logo
-} from '@fireact/core';
+} from '@fireact.dev/core';
 import config from './config.json';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';

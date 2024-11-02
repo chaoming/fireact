@@ -1,5 +1,5 @@
 {
-  "name": "@fireact/core",
+  "name": "@fireact.dev/core",
   "version": "1.0.0",
   "description": "Core components and utilities for Fireact applications",
   "main": "dist/index.js",
